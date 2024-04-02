@@ -1,0 +1,22 @@
+.bg-custom {
+    height: 100%;
+    background-image: url("/public/Images/site-bg.jpg");
+    /* background-image: url(../../assets/site-bg.jpg); */
+    /* background-image: url("https://4kwallpapers.com/images/wallpapers/dark-blue-pink-2560x2560-12661.jpg"); */
+    background-size: cover;
+    background-position: center;
+     }
+
+.err{
+padding: 5px;
+}
+
+#file{
+        display:flex;
+    }
+.file-label{
+        font-size: 13px;
+        text-align: left !important;
+        color: #A52968;
+    }
+    

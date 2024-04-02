@@ -25,10 +25,6 @@ const userSchema = new mongoose.Schema({
         type:Boolean,
         required:true
     },
-    is_verified:{
-        type:Boolean,
-        default:0
-    }
 });
 
 module.exports = new mongoose.model("userModel",userSchema);

@@ -34,11 +34,18 @@
    
        <input type="submit" value="login" id="submit"></input>
     </form>
+
         <a  onclick="myFunction()" href="/register">Dont have a account? Sign up</a>
         <br><br><br><br><br><br>
         <% if(typeof message !== 'undefined'){ %>
             <h4 style="color:red;"> <%= message %> </h4>
         <% } %>
+
+        <div class="admin-switch">
+          <p class="admin-text" style="font-size: 14px; color: whitesmoke; letter-spacing: 0.7px;">Are you an admin?</p>
+          <a href="/admin" class="admin-btn">Go to Admin Panel</a>
+        </div>
+
     </div>
     <div class="pic">
     </div>

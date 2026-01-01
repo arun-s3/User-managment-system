@@ -162,6 +162,37 @@ border-radius: 10px;
 border: 1px solid #494954;
 }
 
+.admin-switch {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.admin-text {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.2px;
+}
+
+.admin-btn {
+  display: inline-block;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #5b5bff, #2f2fd8);
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 18px rgba(47, 47, 216, 0.25);
+}
+
+.admin-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(47, 47, 216, 0.35);
+  background: linear-gradient(135deg, #4a4aff, #2424c4);
+}
+
 @media only screen and (max-width: 1010px) {
 .pic {
   /* display: none; */

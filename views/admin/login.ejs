@@ -14,6 +14,7 @@
         <div class="pic2"></div>
         <img src="https://store-images.s-microsoft.com/image/apps.28471.14139628370441750.28b315c6-e587-4ac5-8b42-4388ed4a2f09.d5ba0d3b-63ca-4d9d-ba00-47fcfa6b02e1" alt="">
         <h1>Admin Login</h1>
+
     <form action="/admin" method="post" id="form">
 
         <div class="inp-parent">
@@ -40,9 +41,16 @@
         <% if(typeof message !== 'undefined'){ %>
             <h4 style="color:red;"> <%= message %> </h4>
         <% } %>
+
+    <div class="admin-switch">
+      <p class="admin-text" style="font-size: 14px; color: whitesmoke; letter-spacing: 0.7px;">Not an admin?</p>
+      <a href="/" class="admin-btn">Go to User Login</a>
+    </div>
+
     </div>
     <div class="pic">
     </div>
     <script src="/public/js/login.js"></script>
+
 </body>
 </html>

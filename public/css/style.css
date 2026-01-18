@@ -1,25 +1,79 @@
 .bg-custom {
     height: 100%;
     background-image: url("/public/Images/site-bg.jpg");
-    /* background-image: url(../../assets/site-bg.jpg); */
-    /* background-image: url("https://4kwallpapers.com/images/wallpapers/dark-blue-pink-2560x2560-12661.jpg"); */
     background-size: cover;
     background-position: center;
-     }
-
-.err{
-padding: 5px;
 }
 
-#file{
-        display:flex;
-    }
-.file-label{
-        font-size: 13px;
-        text-align: left !important;
-        color: #A52968;
-    }
+.err {
+    padding: 5px;
+}
 
+#file {
+    display: flex;
+}
 
+.file-label {
+    font-size: 13px;
+    text-align: left !important;
+    color: #A52968;
+}
+
+.dashboard-table .sortable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.dashboard-table .arrow {
+    font-size: 12px;
+    margin-left: 4px;
+    opacity: 0.6;
+}
+
+.dashboard-table th {
+    cursor: pointer;
+    user-select: none;
+}
+
+.dashboard-table th.asc::after {
+    content: " ▲";
+    font-size: 12px;
+}
+
+.dashboard-table th.desc::after {
+    content: " ▼";
+    font-size: 12px;
+}
+
+.toast {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    padding: 14px 22px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: 0.3s;
+    z-index: 9999;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.success {
+    background: #198754;
+}
+
+.toast.error {
+    background: #dc3545;
+}
+
+.toast.info {
+    background: #0dcaf0;
+}
 
     

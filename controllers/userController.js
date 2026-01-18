@@ -1,6 +1,7 @@
 const User = require("../models/userModel")
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
+const getToast = require("../Utils/getToast")
 
 
 const securepassword = async(password)=>{
@@ -103,7 +104,7 @@ const verifyLogin = async(req,res)=>{
 const loadHome = async(req,res)=>{
     try{
         const userData = await User.findById({_id:req.session.user});
-        res.render('users/home', {user: userData});
+        res.render("users/home", { user: userData, toast: getToast(req) })
         console.log(req.session.user)
 
     }
@@ -148,9 +149,17 @@ const updateProfile = async(req,res)=>{
         else{
             const userData = await User.findByIdAndUpdate({_id:req.body.id},{$set:{name:req.body.name, email:req.body.email, mobile:req.body.mno, password:spassword}});
         }
+        req.session.toast = {
+            type: "success",
+            message: "Updated your profile successfully!",
+        }
         res.redirect('/home')
     }
     catch(error){
+        req.session.toast = {
+            type: "error",
+            message: error.message,
+        }
         console.log(error.message);
     }
 }

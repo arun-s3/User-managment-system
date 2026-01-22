@@ -3,16 +3,16 @@ const app = express();
 const path = require("path")
 const nocache = require("nocache")
 
+require("dotenv").config()
+
 app.set("view engine","ejs")
 
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/ums-db");
+mongoose.connect(process.env.MONGOURI);
 mongoose.connection.on("connected", ()=>{console.log("Connected to database..")})
 mongoose.connection.on("disconnected", ()=>{console.log("/n Disconnected to database..")})
 mongoose.connection.on("error", ()=>{console.log("/n Error in database connection..")})
-// app.use(express.json());
-// app.use(express.urlencoded({extended: true}));
-// app.set("/assets",express.static(path.join(__filename,"/assets"))) 
+
 
 app.use(nocache())
 app.use("/public", express.static(path.join(__dirname, "/public")));

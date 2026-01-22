@@ -1,6 +1,6 @@
 const User = require("../models/userModel")
 const mongoose = require("mongoose")
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
 const getToast = require("../Utils/getToast")
 
 

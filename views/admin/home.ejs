@@ -21,8 +21,12 @@
 
   <div id="toast" class="toast"></div>
 
-    <section class="min-vh-100 bg-custom">
-        <div class="container py-5 h-100">
+    <div class="logo-container position-fixed top-0 start-0">
+        <img src="/public/Images/logo-main.png" alt="Cortex" class="logo-img">
+    </div>
+
+    <section class="min-vh-100 bg-custom" style="height: auto !important;">
+        <div class="container py-5">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
               <div class="card text-white" style="border-radius: 1rem; 
@@ -35,7 +39,7 @@
                     <h2 class="fw-bold mb-2 text-uppercase">Welcome Admin!</h2>
 
                         <% if (admin.name) {%>
-                    <p class="text-white-50 mb-4"><%= admin.name %> [Admin]</p>
+                    <p class="text-white-50 mb-4"><%= admin.name %></p>
                             <% } else { %>
                             <p class="text-white-50 mb-4"> <%= "User" %> </p>   
                             <% } %>
@@ -68,11 +72,29 @@
                                <% } %>
                               </table>
 
-                            <h2 style="margin-top: 2rem;"><a href="/admin/dashboard"> <button type="button" class="btn btn-outline-light btn-lg px-4" style="border-color: #224998;">User Dashboard &#8594;</button></a></h2>
+                            <h2 style="margin-top: 2rem;">
+                                <a href="/admin/dashboard"> 
+                                    <button type="button" class="btn btn-outline-light btn-sm px-5" style="border-color: #224998;">
+                                        User Dashboard &#8594;
+                                    </button>
+                                </a>
+                            </h2>
 
                             <div style="display:flex; gap:25px; justify-content:center; align-items:baseline; margin-top: 1rem;">
-                                <h4><a href="/admin/edit-self?id=<%=admin._id%>"> <button type="button" class="btn btn-outline-light btn-sm px-5" style="border-color: #BA376F;">Edit</button></a></h4>        
-                                <h4><a href="/admin/logout"> <button type="button" class="btn btn-outline-light btn-sm px-5" style="border-color: #BA376F;">Logout</button></a></h4>
+                                <h4>
+                                    <a href="/admin/edit-self?id=<%=admin._id%>">
+                                         <button type="button" class="btn btn-outline-light btn-sm px-5" style="border-color: #BA376F;">
+                                            Edit
+                                         </button>
+                                    </a>
+                                </h4>        
+                                <h4>
+                                    <a href="/admin/logout">
+                                         <button type="button" class="btn btn-outline-light btn-sm px-5" style="border-color: #BA376F;">
+                                            Logout
+                                         </button>
+                                    </a>
+                                </h4>
                             </div>
                               
                                     

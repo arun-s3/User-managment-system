@@ -19,6 +19,43 @@
     color: #A52968;
 }
 
+.logo-container {
+    padding: 1rem;
+    z-index: 10;
+}
+
+.logo-img {
+    object-fit: cover;
+    height: 4rem;
+    width: 10rem;
+    padding: 0.25rem;
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+}
+
+.logo-img:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+}
+
+.dashboard-logo-container {
+    top: 3rem;
+    right: 10rem;
+}
+
+.dashboard-logo-container .logo-img {
+    object-fit: cover;
+    width: 5rem;
+    padding: 0.25rem;
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.25rem;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(10px);
+}
+
 .dashboard-table .sortable {
     cursor: pointer;
     user-select: none;
@@ -76,4 +113,90 @@
     background: #0dcaf0;
 }
 
-    
+
+@media (max-width: 992px) {
+
+    .dashboard-logo-container {
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .dashboard-logo-container .logo-img {
+        width: 4rem;
+    }
+
+    .dashboard-controls{
+        margin-top: 2rem;
+        flex-direction: column;
+    }
+
+    .mb-md-5.mt-md-4.px-5.py-5 {
+        padding: 2rem !important;
+    }
+
+    #table-img {
+        height: 70px;
+        width: 70px;
+    }
+}
+
+/* Mobile devices */
+@media (max-width: 576px) {
+
+    h2.fw-bold {
+        font-size: 1.4rem;
+    }
+
+    .dashboard-logo-container {
+        position: static !important;
+        text-align: center;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        padding-top: 10px;
+        background: #172349;
+    }
+
+    .dashboard-logo-container .logo-img {
+        width: 9rem;
+    }
+
+    .inner-container {
+        margin-top: 3rem;
+    }
+
+    .mb-md-5.mt-md-4.px-5.py-5 {
+        padding: 1.25rem !important;
+    }
+
+    /* Search bar stack */
+    form.d-flex {
+        flex-direction: column;
+    }
+
+    form.d-flex input,
+    form.d-flex .btn {
+        width: 100%;
+        margin: 0.25rem 0;
+    }
+
+    /* Buttons stack */
+    h2>a>button {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Table text smaller */
+    table {
+        font-size: 0.85rem;
+    }
+
+    #table-img {
+        height: 55px;
+        width: 55px;
+    }
+
+    td,
+    th {
+        white-space: nowrap;
+    }
+}

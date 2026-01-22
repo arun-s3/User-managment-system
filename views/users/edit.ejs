@@ -9,13 +9,16 @@
     
 </head>
 <body>
+    <div class="logo-container position-fixed top-0 start-0">
+        <img src="/public/Images/logo-main.png" alt="Cortex" class="logo-img">
+    </div>
     <section class="bg-custom">
         <div class="container py-5 h-100">
            
           <div class="row d-flex justify-content-center align-items-center h-100">
             
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-              <div class="card bg-dark text-white" style="border-radius: 1rem; 
+              <div class="card bg-dark text-white mt-5" style="border-radius: 1rem; 
                                                           background-color:#24242C;
                                                           box-shadow: 3px 3px 2px #24242C;">
                 <div class="card-body p-5 text-center">
@@ -99,15 +102,15 @@
                                   </div>
                                   <tr class="w-100">
                                     <div class="file">
-                                      <input type="file" name="image" id="file"  style="font-size:12px;">
+                                      <input type="file" name="image" id="file" class="w-100"  style="font-size:12px;">
                                       <label class="form-label file-label" for="file" style="display: flex; justify-content: flex-start;">Upload Profile Pic</label>
                                   </div>
                                   </tr>
                              <% } %>
                                
                               </table>
-
-                              <h2><input type="submit" class="btn btn-outline-info btn-lg px-5" value="Update Profile"></h2>        
+ 
+                              <h2><input type="submit" class="btn btn-outline-info btn-lg px-5 w-100" value="Update Profile"></h2>        
                             </form>
                               
                             <h2 style="margin-top: 2rem;"><a href="/logout"><button type="button" class="btn btn-outline-light btn-lg px-5">Logout</button></a></h2> 

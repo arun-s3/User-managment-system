@@ -1,15 +1,14 @@
 {
-    "name": "ums",
+    "name": "cortex-user-management-application",
     "version": "1.0.0",
-    "description": "",
+    "description": "Cortex user management system",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "devStart": "nodemon index.js",
-        "start": "node index.js"
+        "start": "node index.js",
+        "devStart": "nodemon index.js"
     },
-    "keywords": [],
-    "author": "",
+    "keywords": ["node", "express", "ejs", "mongodb", "css", "bootstrap", "javascript"],
+    "author": "Arun S",
     "license": "ISC",
     "dependencies": {
         "bcryptjs": "^3.0.3",
@@ -20,7 +19,9 @@
         "mongoose": "^8.0.3",
         "multer": "^1.4.5-lts.1",
         "nocache": "^4.0.0",
-        "nodemon": "^3.0.2",
         "randomstring": "^1.3.0"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.11"
     }
 }

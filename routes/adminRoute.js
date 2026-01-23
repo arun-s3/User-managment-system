@@ -33,9 +33,8 @@ const adminController = require('../controllers/adminController.js');
 const adminAuth = require('../middlewares/adminAuth.js');
 
 admin_route.get('/', adminAuth.isLogout, adminController.loginLoad);
-// admin_route.get('/login', adminAuth.isLogout,adminController.loginLoad);
+
 admin_route.post('/', adminController.verifyLogin);
-// admin_route.post('/login', adminController.verifyLogin);
 
 admin_route.get('/home', adminAuth.isLogin, adminController.loadDashboard);
 admin_route.get('/logout', adminAuth.isLogin, adminController.logout);

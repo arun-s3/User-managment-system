@@ -15,7 +15,9 @@ const securepassword = async(password)=>{
 
 const loadRegister = async (req,res)=>{
     try{
-        res.render('users/registration');
+        const isAdmin = req.query.admin === "true"
+
+        res.render("users/registration", {isAdmin})
     }
     catch(error)
     {
@@ -23,34 +25,52 @@ const loadRegister = async (req,res)=>{
     }
 }
 
-const insertUser = async(req,res)=>{
-    try{
-        const tempData = await User.findOne({email:req.body.email});
-        if (tempData){
-            res.render("users/registration", {message:"This email already exists. Please refill the form!", 
-                                              name:req.body.name, mobile:req.body.mno})
+
+const insertUser = async (req, res) => {
+    try {
+        const isAdmin = req.query.admin === "true"
+
+        const tempData = await User.findOne({ email: req.body.email })
+        if (tempData) {
+            return res.render("users/registration", {
+                message: "This email already exists. Please refill the form!", name: req.body.name, mobile: req.body.mno, isAdmin,
+            })
         }
-        else{
-            const spassword = await securepassword(req.body.password);
-            const user = new User({
-            name:req.body.name,
-            password:spassword,
-            mobile:req.body.mno,
-            email:req.body.email,
-            image:req.file.filename,
-            is_admin:0
-        });
-        const userData = await user.save();
-        if(userData){
-            res.render('users/registration',{message: "Your registration is successful!!"})
+
+        if (isAdmin && req.body.inviteCode !== process.env.ADMIN_INVITE_CODE) {
+            return res.render("users/registration", {
+                message: "Invalid admin invite code", name: req.body.name, mobile: req.body.mno, isAdmin
+            })
         }
-        else{
-            res.render('users/registration',{message: "Your registration has failed"})
+
+        const spassword = await securepassword(req.body.password)
+
+        const user = new User({
+            name: req.body.name,
+            password: spassword,
+            mobile: req.body.mno,
+            email: req.body.email,
+            image: req.file.filename,
+            is_admin: isAdmin ? 1 : 0,
+        })
+
+        const userData = await user.save()
+        if (userData){
+            req.session.toast = {
+                type: "success",
+                message: "Your registration is successful!",
+            }
+            if (isAdmin) {
+                res.redirect("/admin")
+            } else res.redirect("/")
+        }else{
+            res.render("users/registration", {
+                message:"Registration failed. Please try again!",
+                isAdmin,
+            })
         }
-        }
-        
     }
-    catch(error){
+    catch (error) {
         console.log(error.message)
     }
 }
@@ -63,7 +83,7 @@ const loginLoad = async(req,res)=>{
     else{
         try{
             console.log(req.session.user)
-            res.render('users/login');
+            res.render("users/login", { toast: getToast(req) })
         }
         catch(error){
             console.log(error.message);
@@ -78,7 +98,7 @@ const verifyLogin = async(req,res)=>{
         const email = req.body.email;
         const password = req.body.password;
 
-        const userData = await User.findOne({email:email});
+        const userData = await User.findOne({ email: email }).lean()
        
         if(userData){
             const passwordMatch = await bcrypt.compare(password, userData.password);
@@ -103,7 +123,7 @@ const verifyLogin = async(req,res)=>{
 
 const loadHome = async(req,res)=>{
     try{
-        const userData = await User.findById({_id:req.session.user});
+        const userData = await User.findById({ _id: req.session.user }).lean()
         res.render("users/home", { user: userData, toast: getToast(req) })
         console.log(req.session.user)
 
@@ -126,7 +146,7 @@ const userLogout = async(req,res)=>{
 const editLoad = async(req,res)=>{
     try{
         const id = req.query.id;
-        const userData = await User.findById({_id:id});
+        const userData = await User.findById({ _id: id }).lean()
         if(userData){
             res.render('users/edit',{user:userData});
         }

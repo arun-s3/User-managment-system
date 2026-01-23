@@ -17,7 +17,7 @@ const securepassword = async(password)=>{
 const loginLoad = async(req,res)=> {
     // if(req.session.admin){
         try{
-            res.render('admin/login')
+            res.render('admin/login', { toast: getToast(req) })
         }
         catch(error){
             console.log(error.message);
@@ -34,7 +34,7 @@ const verifyLogin = async(req,res)=> {
         const email = req.body.email
         const password = req.body.password
         
-        const userData = await User.findOne({email:email})
+        const userData = await User.findOne({email:email}).lean()
 
         if(userData){
             const passwordMatch = await bcrypt.compare(password, userData.password)
@@ -64,7 +64,7 @@ const loadDashboard = async(req,res)=>{
     if(req.session.admin){
         try{
             const id = req.session.admin;
-            const adminData = await User.findOne({_id:id})
+            const adminData = await User.findOne({ _id: id }).lean()
 
             res.render("admin/home", { admin: adminData, toast: getToast(req) })
         }
@@ -96,8 +96,8 @@ const logout = async(req,res)=>{
 const adminDashboard = async (req,res)=>{
     if(req.session.admin){        
         try{    
-            const usersData = await User.find({is_admin:0}); 
-            const adminData = await User.findOne({is_admin:1});
+            const usersData = await User.find({ is_admin: 0 }).lean() 
+            const adminData = await User.findOne({ is_admin: 1 }).lean()
             res.render("admin/dashboard", { users: usersData, admin: adminData, toast: getToast(req) })
         }
         catch(error){
@@ -112,7 +112,7 @@ const adminDashboard = async (req,res)=>{
 const loadEditSelf = async(req,res)=>{
     try{
         const id = req.query.id;
-        const admin = await User.findOne({_id:id});
+        const admin = await User.findOne({ _id: id }).lean()
         if(admin){
             res.render('admin/edit-self',{admin:admin});
         }
@@ -157,7 +157,7 @@ const editSelf = async(req,res)=>{
 const LoadNewUser= async(req,res)=>{
     if(req.session.admin){
         try{
-            const adminData = await User.findOne({is_admin:1});
+            const adminData = await User.findOne({ is_admin: 1 }).lean()
             res.render('admin/new-user',{admin:adminData.name});
         }
         catch(error){
@@ -212,7 +212,7 @@ const loadEditUser = async(req,res)=>{
    if(req.session.admin){
     try{
         const id = req.query.id;
-        const userData = await User.findById({_id:id}); 
+        const userData = await User.findById({ _id: id }).lean() 
         console.log(userData)
         if(userData){
             res.render('admin/edit-user',{user: userData});
@@ -289,7 +289,9 @@ const searchUser = async(req,res)=>{
             if(req.session.admin){
                 const searchData = req.body.search;
                 
-                const result = await User.find({$and:[{name: {$regex: searchData, $options: "i"}},{is_admin:0}]})
+                const result = await User.find({
+                    $and: [{ name: { $regex: searchData, $options: "i" } }, { is_admin: 0 }],
+                }).lean()
         
                 const admin = await User.findOne({is_admin:1});
                         

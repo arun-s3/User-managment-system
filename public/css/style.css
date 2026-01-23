@@ -56,6 +56,10 @@
     backdrop-filter: blur(10px);
 }
 
+.invite-code::placeholder {
+    font-size: 13px;
+}
+
 .dashboard-table .sortable {
     cursor: pointer;
     user-select: none;

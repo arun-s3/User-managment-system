@@ -1,6 +1,17 @@
 
 <%- include('../partials/head', { useBootstrap: false, useGoogleFonts: true }) %>
 
+    <% if (toast) { %>
+        <script>
+        window.__TOAST__ = {
+            message: "<%= toast.message %>",
+            type: "<%= toast.type %>"
+        }
+        </script>
+    <% } %>
+
+    <div id="toast" class="toast"></div>
+
     <div class="container">
         <div class="pic2"></div>
         <img src="https://store-images.s-microsoft.com/image/apps.28471.14139628370441750.28b315c6-e587-4ac5-8b42-4388ed4a2f09.d5ba0d3b-63ca-4d9d-ba00-47fcfa6b02e1" alt="">
@@ -27,6 +38,8 @@
 
         <input type="submit" value="login" id="submit"></input>
     </form>
+
+        <a  onclick="myFunction()" href="/register?admin=true">Dont have a account? Sign up as an admin</a>
         
         <br><br><br><br><br><br>
         <% if(typeof message !== 'undefined'){ %>
@@ -45,5 +58,6 @@
 <%- include("../partials/footer", {
     scripts: `
         <script src="/public/js/login.js"></script>
+        <script src="/public/js/toast.js"></script>
     `
 }) %>

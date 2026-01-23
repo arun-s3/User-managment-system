@@ -1,6 +1,17 @@
 
 <%- include('../partials/head', { useBootstrap: false, useGoogleFonts: true }) %>
 
+    <% if (toast) { %>
+        <script>
+        window.__TOAST__ = {
+            message: "<%= toast.message %>",
+            type: "<%= toast.type %>"
+        }
+        </script>
+    <% } %>
+
+    <div id="toast" class="toast"></div>
+
     <div class="container">
         <div class="pic2"></div>
         <img src="/public/Images/logo1.png" alt="Welcome">
@@ -26,7 +37,7 @@
        <input type="submit" value="login" id="submit"></input>
     </form>
 
-        <a  onclick="myFunction()" href="/register">Dont have a account? Sign up</a>
+        <a  onclick="myFunction()" href="/register?admin=false">Dont have a account? Sign up</a>
         <br><br><br><br><br><br>
         <% if(typeof message !== 'undefined'){ %>
             <h4 style="color:red;"> <%= message %> </h4>
@@ -44,5 +55,6 @@
 <%- include("../partials/footer", {
     scripts: `
         <script src="/public/js/login.js"></script>
+        <script src="/public/js/toast.js"></script>
     `
 }) %>

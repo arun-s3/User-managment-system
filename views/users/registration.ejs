@@ -18,7 +18,8 @@
                     <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
                     <p class="text-white-50 mb-4">Please enter your details</p>
 
-                    <form id="form" action="/register" method="post" enctype="multipart/form-data">
+                    <form id="form" action="/register?<%= isAdmin ? 'admin=true' : 'admin=false' %>"
+                        method="post" method="post" enctype="multipart/form-data">
                      
                         <% if((typeof message !== 'undefined') && (message.includes("exists")))
                         {%>
@@ -60,6 +61,14 @@
                     </div>
                     <p><div id="error4" style="display: none;" class="alert alert-danger err"></div></p>
                     
+                    <% if (isAdmin) { %>
+                        <div class="form-outline form-white mb-3">
+                            <input type="text" name="inviteCode" class="form-control form-control-lg invite-code" placeholder="Admin Invite Code"
+                                   required/>
+                            <label class="form-label">Admin Invite Code</label>
+                        </div>
+                    <% } %>
+
                     <div class="file">
                         <input type="file" name="image" id="file" required>
                         <label class="form-label file-label" for="file">Upload Profile Pic</label>

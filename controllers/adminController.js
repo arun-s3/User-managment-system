@@ -10,24 +10,19 @@ const securepassword = async(password)=>{
         return hashedPassword;
     }
     catch(error){
-        console.log(error.message);
+        console.error(error);
     }
 } 
 
 const loginLoad = async(req,res)=> {
-    // if(req.session.admin){
         try{
             res.render('admin/login', { toast: getToast(req) })
         }
         catch(error){
-            console.log(error.message);
+            console.error(error)
         }
     }
-//     else{
-//         res.render('/admin')
-//     }
-    
-// }
+
 
 const verifyLogin = async(req,res)=> {
     try{
@@ -56,7 +51,7 @@ const verifyLogin = async(req,res)=> {
         }
     }
     catch(error){
-        console.log(error.message);
+         console.error(error)
     }
 }
 
@@ -69,7 +64,7 @@ const loadDashboard = async(req,res)=>{
             res.render("admin/home", { admin: adminData, toast: getToast(req) })
         }
         catch(error){
-            console.log(error.message);
+             console.error(error)
         }
     }
     else{
@@ -85,7 +80,7 @@ const logout = async(req,res)=>{
             res.redirect('/admin');
         }
         catch(error){
-            console.log(error.message)
+            console.error(error)
         }
     }
     else{
@@ -101,7 +96,7 @@ const adminDashboard = async (req,res)=>{
             res.render("admin/dashboard", { users: usersData, admin: adminData, toast: getToast(req) })
         }
         catch(error){
-            console.log(error.message);
+            console.error(error);
         }
     }
     else{
@@ -121,7 +116,7 @@ const loadEditSelf = async(req,res)=>{
         }
     }
     catch(error){
-        console.log(error.message);
+        console.error(error);
     }
 }
 
@@ -150,7 +145,7 @@ const editSelf = async(req,res)=>{
             type: "error",
             message: error.message,
         }
-        console.log(error.message);
+        console.error(error);
     }
 }
 
@@ -161,7 +156,7 @@ const LoadNewUser= async(req,res)=>{
             res.render('admin/new-user',{admin:adminData.name});
         }
         catch(error){
-            console.log(error.message);
+            console.error(error);
         }
     }
     else{
@@ -200,7 +195,7 @@ const addUser = async(req,res)=>{
             }
         }
         catch(error){
-            console.log(error.message);
+            console.error(error);
         }
     }
     else{
@@ -213,7 +208,6 @@ const loadEditUser = async(req,res)=>{
     try{
         const id = req.query.id;
         const userData = await User.findById({ _id: id }).lean() 
-        console.log(userData)
         if(userData){
             res.render('admin/edit-user',{user: userData});
         }
@@ -223,7 +217,7 @@ const loadEditUser = async(req,res)=>{
         
     }
     catch(error){
-        console.log(error.message);
+        console.error(error);
     }
    }
    else{
@@ -253,7 +247,7 @@ if(req.session.admin)
             type: "error",
             message: error.message,
         }
-        console.log(error.message);
+        console.error(error);
     }
 else{
     res.redirect('/admin')
@@ -276,7 +270,7 @@ const deleteUser = async(req,res)=>{
             type: "error",
             message: error.message,
         }
-        console.log(error.message);
+        console.error(error);
     }
    }
    else{
@@ -303,7 +297,7 @@ const searchUser = async(req,res)=>{
         }
     }
     catch(error){
-        console.log(error.message);
+        console.error(error);
     }
 
     

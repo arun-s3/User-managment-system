@@ -29,8 +29,7 @@ if (process.env.NODE_ENV !== "production") {
     app.use(nocache())
 }
 
-app.use(
-    "/public",
+app.use("/public",
     express.static(path.join(__dirname, "public"), {
         maxAge: "7d",
         immutable: true,

@@ -5,101 +5,95 @@
     <%- include('../partials/logo', { type: 'main' }) %>
 
 
-    <section class="bg-custom">
-        <div class="container py-5 h-100">
-          <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-              <div class="card text-white" 
-                style="margin-top: 3rem; border-radius: 1rem; background-color:#24242C; box-shadow: 3px 3px 2px #24242C;">
-                <div class="card-body p-5 ">
-      
-                  <div class="mb-md-5 mt-md-4 pb-5">
-      
-                    <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
-                    <p class="text-white-50 mb-4">Please enter your details</p>
+        <section class="bg-custom">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                        <div class="card text-white" 
+                            style="margin-top: 3rem; border-radius: 1rem; background-color:#24242C; box-shadow: 3px 3px 2px #24242C;">
+                            <div class="card-body p-5 ">
+                            
+                                <div class="mb-md-5 mt-md-4 pb-5">
+                                
+                                    <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
+                                    <p class="text-white-50 mb-4">Please enter your details</p>
+                                
+                                    <form id="form" action="/register?<%= isAdmin ? 'admin=true' : 'admin=false' %>"
+                                        method="post" method="post" enctype="multipart/form-data">
+                                    
+                                        <% if((typeof message !== 'undefined') && (message.includes("exists")))
+                                        {%>
+                                        <p style="color:red;"> <%= message%></p>
+                                        <%}else if(typeof message !== 'undefined'){ %>
+                                            <p style="color:green;"> <%= message%></p>
+                                        <% } %>
+                                        
+                                        <div class="form-outline form-white mb-3">
+                                            <% if(typeof name !=='undefined'){%>
+                                            <input type="text" id="name" class="form-control form-control-lg" name="name" 
+                                                value="<%=name%>" required />
+                                            <%}else{%>
+                                                <input type="text" id="name" class="form-control form-control-lg" name="name" required />
+                                            <%}%>
+                                            
+                                            <label class="form-label" for="name">Name</label>
+                                        </div>
+                                        <p><div id="error1" style="display: none;" class="alert alert-danger err"></div></p>
+                                    
+                                        <div class="form-outline form-white mb-3">
+                                            <input type="email" id="email" class="form-control form-control-lg" name="email" required />
+                                            <label class="form-label" for="email">Email</label>
+                                        </div>
+                                        <p><div id="error2" style="display: none;" class="alert alert-danger err"></div></p>
+                                    
+                                        <div class="form-outline form-white mb-3">
+                                            <% if(typeof mobile !=='undefined'){%>
+                                            <input type="text" id="mobile" class="form-control form-control-lg" name="mno"
+                                                 value="<%=mobile%>" required />
+                                            <%}else{%>
+                                            <input type="text" id="mobile" class="form-control form-control-lg" name="mno" required />
+                                            <%}%>
+                                            <label class="form-label" for="mobile">Mobile</label>
+                                        </div>
+                                        <p><div id="error3" style="display: none;" class="alert alert-danger err"></div></p>
+                                    
+                                        <div class="form-outline form-white mb-3">
+                                            <input type="password" id="password" class="form-control form-control-lg" name="password" required/>
+                                            <label class="form-label" for="password">Password</label>
+                                        </div>
+                                        <p><div id="error4" style="display: none;" class="alert alert-danger err"></div></p>
 
-                    <form id="form" action="/register?<%= isAdmin ? 'admin=true' : 'admin=false' %>"
-                        method="post" method="post" enctype="multipart/form-data">
-                     
-                        <% if((typeof message !== 'undefined') && (message.includes("exists")))
-                        {%>
-                          <p style="color:red;"> <%= message%></p>
-                        <%}else if(typeof message !== 'undefined'){ %>
-                            <p style="color:green;"> <%= message%></p>
-                        <% } %>
-
-                    <div class="form-outline form-white mb-3">
-                      <% if(typeof name !=='undefined'){%>
-                       <input type="text" id="name" class="form-control form-control-lg" name="name" value="<%=name%>" required />
-                       <%}else{%>
-                        <input type="text" id="name" class="form-control form-control-lg" name="name" required />
-                       <%}%>
-                    
-                      <label class="form-label" for="name">Name</label>
-                    </div>
-                    <p><div id="error1" style="display: none;" class="alert alert-danger err"></div></p>
-      
-                    <div class="form-outline form-white mb-3">
-                      <input type="email" id="email" class="form-control form-control-lg" name="email" required />
-                      <label class="form-label" for="email">Email</label>
-                    </div>
-                    <p><div id="error2" style="display: none;" class="alert alert-danger err"></div></p>
-
-                    <div class="form-outline form-white mb-3">
-                      <% if(typeof mobile !=='undefined'){%>
-                        <input type="text" id="mobile" class="form-control form-control-lg" name="mno" value="<%=mobile%>" required />
-                        <%}else{%>
-                         <input type="text" id="mobile" class="form-control form-control-lg" name="mno" required />
-                        <%}%>
-                      <label class="form-label" for="mobile">Mobile</label>
-                    </div>
-                    <p><div id="error3" style="display: none;" class="alert alert-danger err"></div></p>
-      
-                    <div class="form-outline form-white mb-3">
-                      <input type="password" id="password" class="form-control form-control-lg" name="password" required/>
-                      <label class="form-label" for="password">Password</label>
-                    </div>
-                    <p><div id="error4" style="display: none;" class="alert alert-danger err"></div></p>
-                    
-                    <% if (isAdmin) { %>
-                        <div class="form-outline form-white mb-3">
-                            <input type="text" name="inviteCode" class="form-control form-control-lg invite-code" placeholder="Admin Invite Code"
-                                   required/>
-                            <label class="form-label">Admin Invite Code</label>
+                                        <% if (isAdmin) { %>
+                                            <div class="form-outline form-white mb-3">
+                                                <input type="text" name="inviteCode" class="form-control form-control-lg invite-code" 
+                                                        placeholder="Admin Invite Code" required/>
+                                                <label class="form-label">Admin Invite Code</label>
+                                            </div>
+                                        <% } %>
+                                        
+                                        <div class="file">
+                                            <input type="file" name="image" id="file" required>
+                                            <label class="form-label file-label" for="file">Upload Profile Pic</label>
+                                        </div>
+                                        <img src="" height="50px" width="50px" id="profilePreview"
+                                            style="display:none; border-radius: 25px; outline: 2px solid #F3387F; margin-bottom: 1.2rem;"/>
+                                        <br>
+                                        <div style="text-align: center;">
+                                            <input class="btn btn-outline-light btn-lg px-5 text-center" type="submit" value="Sign Up" />
+                                            <p class="mb-0" style="position: relative; top: 40px;">
+                                                Already have an account? <a href="/" class="fw-bold" style="color:#2020DB;" >Login</a>
+                                            </p>
+                                        
+                                        </div>
+                                    
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                    <% } %>
-
-                    <div class="file">
-                        <input type="file" name="image" id="file" required>
-                        <label class="form-label file-label" for="file">Upload Profile Pic</label>
                     </div>
-                    <img src="" height="50px" width="50px" id="profilePreview"
-                        style="display:none; border-radius: 25px; outline: 2px solid #F3387F; margin-bottom: 1.2rem;">
-                    <br>
-                    <div style="text-align: center;">
-                        <input class="btn btn-outline-light btn-lg px-5 text-center" type="submit" value="Sign Up" />
-                        <p class="mb-0" style="position: relative; top: 40px;">Already have an account? <a href="/" class="fw-bold" style="color:#2020DB;" >Login</a>
-                          </p>
-
-                    </div>
-                   
-
-                  </form>
-      
-                    
-      
-                  </div>
-      
-                  <div>
-                    
-                  </div>
-      
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </section>
+        </section>
 
 <%- include("../partials/footer", {
     scripts: `

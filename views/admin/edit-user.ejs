@@ -4,72 +4,75 @@
     <%- include('../partials/logo', { type: 'mini' }) %>
 
     <section class="min-vh-100 bg-custom">
-      <div class="container py-1 h-100">
-        <div class="row d-flex justify-content-center align-items-center w-100 h-100">
-          <div class="col-md-12">
+        <div class="container py-1 h-100">
+            <div class="row d-flex justify-content-center align-items-center w-100 h-100">
+            <div class="col-md-12">
 
-            <div class="bg-dark text-white inner-container" style="border-radius: 1rem; 
-                                                     background-color:#24242C;
-                                                     box-shadow: 3px 3px 2px #24242C;">
-              <div class="mb-md-5 mt-md-4 px-5 py-5">
-              
-              <div style="display: flex; gap: 20px; align-items: center;">
-                <img src="<%=user.image%>" height="50px" width="50px" id="profilePreview"
-                        style="border-radius: 25px; outline: 2px solid #F3387F; margin-bottom: 1.2rem;">
-                <h2 class="fw-bold text-uppercase" style="margin-bottom: 20px;"> <% if (user.name) {%> <%= user.name %> <% } 
-                      else { %> <%= "User" %> <% } %> 's Profile
-                </h2>
-              </div>
-
-                <form action="" method="post" id="form" enctype="multipart/form-data">
-                    <% if(user) { %>
-                    <div class="form-outline form-white mb-3">
-                      <label class="form-label" for="name">Name</label>
-                      <input type="text" id="name" class="form-control form-control-lg" name="name" value="<%= user.name %>" required />
-                    </div>
-                    <p><div id="error1" style="display: none;" class="alert alert-danger err"></div></p>
-
+                <div class="bg-dark text-white inner-container" style="border-radius: 1rem; 
+                                                        background-color:#24242C;
+                                                        box-shadow: 3px 3px 2px #24242C;">
+                    <div class="mb-md-5 mt-md-4 px-5 py-5">
                     
-                    <input type="hidden"  name="id" value="<%= user._id %>" />
-
-
-                    <div class="form-outline form-white mb-3">
-                      <label class="form-label" for="email">Email</label>
-                      <input type="email" id="email" class="form-control form-control-lg" name="email" value="<%= user.email %>" required />
+                    <div style="display: flex; gap: 20px; align-items: center;">
+                        <img src="<%=user.image%>" height="50px" width="50px" id="profilePreview"
+                                style="border-radius: 25px; outline: 2px solid #F3387F; margin-bottom: 1.2rem;">
+                        <h2 class="fw-bold text-uppercase" style="margin-bottom: 20px;"> <% if (user.name) {%> <%= user.name %> <% } 
+                            else { %> <%= "User" %> <% } %> 's Profile
+                        </h2>
                     </div>
-                    <p><div id="error2" style="display: none;" class="alert alert-danger err"></div></p>
 
+                    <form action="" method="post" id="form" enctype="multipart/form-data">
+                        <% if(user) { %>
+                        <div class="form-outline form-white mb-3">
+                            <label class="form-label" for="name">Name</label>
+                            <input type="text" id="name" class="form-control form-control-lg" name="name" value="<%= user.name %>" required />
+                        </div>
+                        <p><div id="error1" style="display: none;" class="alert alert-danger err"></div></p>
 
-                    <div class="form-outline form-white mb-3">
-                      <label class="form-label" for="mobile">Mobile</label>
-                      <input type="number" id="mobile" class="form-control form-control-lg" name="mno" value="<%= user.mobile %>" required/>
-                    </div>
-                    <p><div id="error3" style="display: none;" class="alert alert-danger err"></div></p>
-
-                    <div class="file">
-                      <input type="file" name="image" id="file"  style="font-size:12px;">
-                      <label class="form-label file-label" for="file" style="display: flex; justify-content: flex-start;">Choose Profile Pic</label>
-                  </div>
-
-      
-                    <% } %>
-
-                    <div class="dashboard-controls"  style="display:flex; justify-content:space-between">
-                        <input  type="submit" class="btn btn-outline-info btn-lg px-5 mb-3" value="Submit" />
-                      <h2>
-                        <a href="/admin/logout"><button type="button" class="btn btn-outline-light btn-lg px-5" style="border-color: #BA376F;">
-                            Logout
-                          </button></a>
                         
-                      </h2>
-                    </div>
-                           
-                    
+                        <input type="hidden"  name="id" value="<%= user._id %>" />
+
+
+                        <div class="form-outline form-white mb-3">
+                            <label class="form-label" for="email">Email</label>
+                            <input type="email" id="email" class="form-control form-control-lg" name="email" value="<%= user.email %>" required />
+                        </div>
+                        <p><div id="error2" style="display: none;" class="alert alert-danger err"></div></p>
+
+
+                        <div class="form-outline form-white mb-3">
+                            <label class="form-label" for="mobile">Mobile</label>
+                            <input type="number" id="mobile" class="form-control form-control-lg" name="mno" value="<%= user.mobile %>" required/>
+                        </div>
+                        <p><div id="error3" style="display: none;" class="alert alert-danger err"></div></p>
+
+                        <div class="file">
+                            <input type="file" name="image" id="file"  style="font-size:12px;">
+                            <label class="form-label file-label" for="file" style="display: flex; justify-content: flex-start;">
+                                Choose Profile Pic
+                            </label>
+                        </div>
+
+        
+                        <% } %>
+
+                        <div class="dashboard-controls"  style="display:flex; justify-content:space-between">
+                            <input  type="submit" class="btn btn-outline-info btn-lg px-5 mb-3" value="Submit" />
+                            <h2>
+                                <a href="/admin/logout"><button type="button" class="btn btn-outline-light btn-lg px-5" 
+                                        style="border-color: #BA376F;">
+                                    Logout
+                                </button></a>
+
+                            </h2>
+                        </div>
+                            
+                        
                     </form>
                     <a href="/admin/dashboard" style="text-decoration: none;">Go Back</a> 
-                  
+                    
+                    </div>
                 </div>
-              </div>
             </div>
           </div>
         </div>

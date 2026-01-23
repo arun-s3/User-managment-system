@@ -16,26 +16,27 @@
         <div class="pic2"></div>
         <img src="/public/Images/logo1.png" alt="Welcome">
         <h1>Log in To Continue</h1>
-    <form action="/" method="post" id="form" >
-
-        <div class="inp-parent">
-            <div class="inp">
-                <input type="email" id="email" name="email" required>
-                <label onclick="focusinp('usr')" for="email">Email</label>
+        
+        <form action="/" method="post" id="form" >
+        
+            <div class="inp-parent">
+                <div class="inp">
+                    <input type="email" id="email" name="email" required>
+                    <label onclick="focusinp('usr')" for="email">Email</label>
+                </div>
+                <span id="error1" style="display: none;" class="alert alert-danger err"></span>
+           </div>
+       
+            <div>
+                <div class="inp">
+                    <input type="password" id="password" name="password" required>
+                    <label onclick="focusinp('pass')" for="password">Password</label>
+                </div>
+                <span id="error2" style="display: none;" class="alert alert-danger err"></span>
             </div>
-            <span id="error1" style="display: none;" class="alert alert-danger err"></span>
-       </div>
-    
-       <div>
-        <div class="inp">
-            <input type="password" id="password" name="password" required>
-            <label onclick="focusinp('pass')" for="password">Password</label>
-        </div>
-        <span id="error2" style="display: none;" class="alert alert-danger err"></span>
-       </div>
-   
-       <input type="submit" value="login" id="submit"></input>
-    </form>
+       
+           <input type="submit" value="login" id="submit"></input>
+        </form>
 
         <a  onclick="myFunction()" href="/register?admin=false">Dont have a account? Sign up</a>
         <br><br><br><br><br><br>
@@ -44,8 +45,8 @@
         <% } %>
 
         <div class="admin-switch">
-          <p class="admin-text" style="font-size: 14px; color: whitesmoke; letter-spacing: 0.7px;">Are you an admin?</p>
-          <a href="/admin" class="admin-btn">Go to Admin Panel</a>
+            <p class="admin-text" style="font-size: 14px; color: whitesmoke; letter-spacing: 0.7px;">Are you an admin?</p>
+            <a href="/admin" class="admin-btn">Go to Admin Panel</a>
         </div>
 
     </div>

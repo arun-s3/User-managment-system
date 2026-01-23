@@ -4,7 +4,7 @@
     "description": "Cortex user management system",
     "main": "index.js",
     "scripts": {
-        "start": "cross-env NODE_ENV=production node index.js",
+        "start": "NODE_ENV=production node index.js",
         "devStart": "cross-env NODE_ENV=development nodemon index.js"
     },
     "keywords": [

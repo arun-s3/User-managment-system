@@ -5,11 +5,10 @@ const getToast = require("../Utils/getToast")
 
 
 const securepassword = async(password)=>{
-    try{
-        return await bcrypt.hash(password,10);
-    }
-    catch(err){
-        console.log(err.message);
+    try {
+        return await bcrypt.hash(password, 10)
+    } catch (error) {
+        console.error(error)
     }
 }
 
@@ -21,7 +20,7 @@ const loadRegister = async (req,res)=>{
     }
     catch(error)
     {
-        console.log(error.message);
+        console.error(error);
     }
 }
 
@@ -71,22 +70,24 @@ const insertUser = async (req, res) => {
         }
     }
     catch (error) {
-        console.log(error.message)
+        res.render("users/registration", {
+            message: "Internal server error. Please check your network and try again later!",
+            isAdmin,
+        })
+        console.error(error);
     }
 }
 
 const loginLoad = async(req,res)=>{
-    console.log("Just inside LoginLoad --"+ req.session.user)
     if(req.session.user){
         res.redirect('users/home')
     }
     else{
         try{
-            console.log(req.session.user)
             res.render("users/login", { toast: getToast(req) })
         }
         catch(error){
-            console.log(error.message);
+            console.error(error);
         }
     }
     
@@ -117,7 +118,7 @@ const verifyLogin = async(req,res)=>{
         }
     }
     catch(error){
-        console.log(error.message);
+        console.error(error);
     }
 }
 
@@ -125,11 +126,9 @@ const loadHome = async(req,res)=>{
     try{
         const userData = await User.findById({ _id: req.session.user }).lean()
         res.render("users/home", { user: userData, toast: getToast(req) })
-        console.log(req.session.user)
-
     }
     catch(error){
-        console.log(error.message);
+        console.error(error);
     }
 }
 
@@ -139,7 +138,7 @@ const userLogout = async(req,res)=>{
         res.redirect("/");
     }
     catch(error){
-        console.log(error.message);
+        console.error(error);
     }
 }
 
@@ -155,7 +154,7 @@ const editLoad = async(req,res)=>{
         }
     }
     catch(error){
-        console.log(error.message);
+        console.error(error);
     }
 }
 
@@ -180,7 +179,7 @@ const updateProfile = async(req,res)=>{
             type: "error",
             message: error.message,
         }
-        console.log(error.message);
+        console.error(error);
     }
 }
 

@@ -1,4 +1,3 @@
-
 <%- include('../partials/head', { useBootstrap: true, useGoogleFonts: false }) %>
 
     <%- include('../partials/logo', { type: 'main' }) %>    
@@ -6,118 +5,120 @@
     <section class="bg-custom">
         <div class="container py-5 h-100">
            
-          <div class="row d-flex justify-content-center align-items-center h-100">
-            
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-              <div class="card bg-dark text-white inner-container" style="border-radius: 1rem; 
-                                                          background-color:#24242C;
-                                                          box-shadow: 3px 3px 2px #24242C;">
-                <div class="card-body p-5 text-center">
-      
-                  <div class="mb-md-5 mt-md-4 pb-5">
-      
-                    <h2 class="fw-bold mb-2 text-uppercase">Welcome !</h2>
-
-                        <% if (admin.name) {%>
-                    <p class="text-white-50 mb-4"><%= admin.name %></p>
-                            <% } else { %>
-                            <p class="text-white-50 mb-4"> <%= "admin" %> </p>   
-                            <% } %>
-      
-                            <% if(locals.err) { %>
-                                <div class="alert alert-danger"> <%= locals.err %></div>
-                                  <% } %>
-                                  <img src="<%=admin.image%>" alt="<%=admin.image%>" height="100px" width="100px" id="profilePreview"
-                                    style="border-radius: 46px; outline: 2px solid #F3387F; margin-bottom: 1.2rem;">
-
-                            <table class="table table-dark  table-hover w-100">
-                                <tr class="w-100">
-                                 <form action="" method="post" id="form" enctype="multipart/form-data">
-                                
-                                  <input type="hidden" name="id" value="<%=admin._id%>" >
-                                  <td>Name </td>
-                                  <% if(admin) { %>
-                                  <td><div class="form-outline form-white mb-3">
-                                  <input type="text" id="name" class="form-control form-control-lg" name="name" value="<%= admin.name %>" required />
-                                  <p><div id="error1" style="display: none;" class="alert alert-danger err"></div></p>
-
-                                </div></td>
-                                <td style="visibility:hidden; width:10%;">
-                                </td>
-                                 
-                                </tr>
-
-                                <tr class="w-100">
-                                
-                                    <td>E-mail </td>
-                                    <td><div class="form-outline form-white mb-3">
-                                      <input type="email" id="email" class="form-control form-control-lg" name="email" value="<%= admin.email %>" required />
-                                      <p><div id="error2" style="display: none;" class="alert alert-danger err"></div></p>
-
-                                    </div></td>
-                                    <td id="check-mark" style="visibility:hidden; width:10%;">
-                                    </td>
-                                   
-                                  </tr>
-                                  <tr class="w-100">
-                                
-                                    <td>Mobile </td>
-                                    <td> <div class="form-outline form-white mb-3">
-                                        <input type="text" id="mobile" class="form-control form-control-lg" name="mno" value="<%= admin.mobile %>" required/>
-                                        <p><div id="error3" style="display: none;" class="alert alert-danger err"></div></p>
-                                    </div>
-                                      
-                                    </td> 
-                                    <td style="visibility:hidden; width:10%;" >
-                                    </td>
-                                    
-
-                                  </tr>
-                                  <tr class="w-100">
-                                    <td>Password </td>
-                                    <td>
-                                      <div class="form-outline form-white mb-3">
-                                        <input type="password" id="password" class="form-control form-control-lg" name="password" required/>
-                                        <label class="form-label" for="typePasswordX"></label>
-                                        <p><div id="error4" style="display: none;" class="alert alert-danger err"></div></p>
-
-                                    </td>
-                                    <td style="visibility:hidden; width:10%;">
-                                    </td>
-                                  </tr>
-                                  
-                                  </div>
-                                  <tr class="w-100">
-                                    <div class="file">
-                                      <input type="file" name="image" id="file"  style="font-size:12px;">
-                                      <label class="form-label file-label" for="file" style="display: flex; justify-content: flex-start;">Upload Profile Pic</label>
-                                  </div>
-                                  </tr>
-                             <% } %>
-                               
-                              </table>
-
-                              <h2>
-                                <input type="submit" class="btn btn-outline-info btn-lg px-5 w-100" value="Update Profile">
-                              </h2>        
-                            </form>
-                              
-                            <h2 style="margin-top: 1rem;">
-                                <a href="/logout">
-                                    <button type="button" class="btn btn-outline-light btn-lg px-5 w-100">Logout</button>
-                                </a>
-                            </h2> 
-                            <a href="/admin/home" style="text-decoration: none;">Go Back</a>       
-                  </div>
-      
+            <div class="row d-flex justify-content-center align-items-center h-100">
                 
-      
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card bg-dark text-white inner-container" 
+                        style="border-radius: 1rem; background-color:#24242C; box-shadow: 3px 3px 2px #24242C;">
+                        <div class="card-body p-5 text-center">
+        
+                            <div class="mb-md-5 mt-md-4 pb-5">
+        
+                                <h2 class="fw-bold mb-2 text-uppercase">Welcome !</h2>
+
+                                <% if (admin.name) { %>
+                                    <p class="text-white-50 mb-4"><%= admin.name %></p>
+                                <% } else { %>
+                                    <p class="text-white-50 mb-4"><%= "admin" %></p>   
+                                <% } %>
+
+                                <% if (locals.err) { %>
+                                    <div class="alert alert-danger"><%= locals.err %></div>
+                                <% } %>
+
+                                <img src="<%= admin.image %>" alt="profile" height="100px" width="100px" 
+                                    id="profilePreview" style="border-radius: 46px; outline: 2px solid #F3387F; margin-bottom: 1.2rem;">
+
+                                <form action="" method="post" id="form" enctype="multipart/form-data">
+
+                                    <input type="hidden" name="id" value="<%= admin._id %>">
+
+                                    <table class="table table-dark table-hover w-100">
+                                        <tr class="w-100">
+                                            <td>Name</td>
+                                            <td>
+                                                <div class="form-outline form-white mb-3">
+                                                    <input type="text" id="name" class="form-control form-control-lg" 
+                                                        name="name" value="<%= admin.name %>" required />
+                                                </div>
+                                                <div id="error1" style="display: none;" class="alert alert-danger err"></div>
+                                            </td>
+                                            <td style="visibility:hidden; width:10%;"></td>
+                                        </tr>
+
+                                        <tr class="w-100">
+                                            <td>E-mail</td>
+                                            <td>
+                                                <div class="form-outline form-white mb-3">
+                                                    <input type="email" id="email" class="form-control form-control-lg" 
+                                                        name="email" value="<%= admin.email %>" required />
+                                                </div>
+                                                <div id="error2" style="display: none;" class="alert alert-danger err"></div>
+                                            </td>
+                                            <td style="visibility:hidden; width:10%;"></td>
+                                        </tr>
+
+                                        <tr class="w-100">
+                                            <td>Mobile</td>
+                                            <td>
+                                                <div class="form-outline form-white mb-3">
+                                                    <input type="tel" id="mobile" class="form-control form-control-lg" 
+                                                        name="mno" value="<%= admin.mobile %>" required/>
+                                                </div>
+                                                <div id="error3" style="display: none;" class="alert alert-danger err"></div>
+                                            </td>
+                                            <td style="visibility:hidden; width:10%;"></td>
+                                        </tr>
+
+                                        <tr class="w-100">
+                                            <td>Password</td>
+                                            <td>
+                                                <div class="form-outline form-white mb-3">
+                                                    <input type="password" id="password" class="form-control form-control-lg" 
+                                                        name="password" required/>
+                                                </div>
+                                                <div id="error4" style="display: none;" class="alert alert-danger err"></div>
+                                            </td>
+                                            <td style="visibility:hidden; width:10%;"></td>
+                                        </tr>
+
+                                        <tr class="w-100">
+                                            <td>Profile Pic</td>
+                                            <td>
+                                                <div class="file">
+                                                    <input type="file" name="image" id="file" style="font-size:12px;">
+                                                    <label class="form-label file-label" for="file" 
+                                                        style="display: flex; justify-content: flex-start;">
+                                                            Upload Profile Pic
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td style="visibility:hidden; width:10%;"></td>
+                                        </tr>
+                                    </table>
+
+                                    <h2>
+                                        <input type="submit" class="btn btn-outline-info btn-lg px-5 w-100" value="Update Profile">
+                                    </h2>
+
+                                </form>
+                                
+                                <h2 style="margin-top: 1rem;">
+                                    <a href="/logout" class="btn btn-outline-light btn-lg px-5 w-100">
+                                        Logout
+                                    </a>
+                                </h2> 
+
+                                <a href="/admin/home" style="text-decoration: none;">Go Back</a>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
             </div>
-          </div>
         </div>
-      </section>
+    </section>
       
 <%- include("../partials/footer", {
     scripts: `

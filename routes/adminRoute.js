@@ -13,9 +13,6 @@ admin_route.use(express.urlencoded({extended: true}));
 
 admin_route.use(express.static('assets'));
 
-// admin_route.set('view engine', 'ejs');
-// admin_route.set('views','../views/admin');
-
 const multer = require('multer');
 const path = require('path');
 

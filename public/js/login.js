@@ -86,8 +86,6 @@ form.addEventListener("submit",function(event){
     error1.textContent = error2.textContent = error3.textContent = error4.textContent = "";
     nameValidator(); emailValidator(); mobileValidator(); passwordValidator();
 
-    console.log(error1.textContent + error2.textContent + error3.textContent + error4.textContent + "\n")
-    console.log(error1.textContent || error2.textContent || error3.textContent || error4.textContent)
     if(error1.textContent || error2.textContent || error3.textContent || error4.textContent){
         event.preventDefault();
     } 

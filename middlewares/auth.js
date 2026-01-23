@@ -8,23 +8,21 @@ const isLogin = async (req,res,next)=>{
         next();
     }
     catch(error){
-        console.log(error.message);
+        console.error(error);
     }
 }
 
 const isLogout = async (req,res,next)=>{
     try{
         if(req.session.user){
-            console.log("inside isLogout-if")
             res.redirect('/home')
         }
         else{
-            console.log("inside isLogout-else")
             next();
         }
     }
     catch(error){
-        console.log(error.message)
+        console.error(error)
     }
 }
 

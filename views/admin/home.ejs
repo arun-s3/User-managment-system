@@ -2,101 +2,92 @@
 <%- include('../partials/head', { useBootstrap: true, useGoogleFonts: false }) %>
 
     <% if (toast) { %>
-    <script>
-      window.__TOAST__ = {
-        message: "<%= toast.message %>",
-        type: "<%= toast.type %>"
-      }
-    </script>
-  <% } %>
+        <script>
+          window.__TOAST__ = {
+            message: "<%= toast.message %>",
+            type: "<%= toast.type %>"
+          }
+        </script>
+    <% } %>
 
-  <div id="toast" class="toast"></div>
+    <div id="toast" class="toast"></div>
 
     <%- include('../partials/logo', { type: 'main' }) %>
 
     <section class="min-vh-100 bg-custom" style="height: auto !important;">
         <div class="container py-5">
-          <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-              <div class="card text-white" style="border-radius: 1rem; 
-                                                  background-color:#24242C;
-                                                  box-shadow: 3px 3px 2px #24242C;">
-                <div class="card-body p-5 text-center">
-      
-                  <div class="mb-md-5 mt-md-4 pb-5">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card text-white" style="border-radius: 1rem; background-color:#24242C; box-shadow: 3px 3px 2px #24242C;">
+                        <div class="card-body p-5 text-center">
+                        
+                            <div class="mb-md-5 mt-md-4 pb-5">
 
-                    <h2 class="fw-bold mb-2 text-uppercase">Welcome Admin!</h2>
+                                <h2 class="fw-bold mb-2 text-uppercase">Welcome Admin!</h2>
 
-                        <% if (admin.name) {%>
-                    <p class="text-white-50 mb-4"><%= admin.name %></p>
-                            <% } else { %>
-                            <p class="text-white-50 mb-4"> <%= "User" %> </p>   
-                            <% } %>
-      
-                            <img src="<%=admin.image%>" alt="<%=admin.image%>" height="100px" width="100px" style="border-radius: 46px;
-                                                                                                                 outline: 2px solid #F3387F;
-                                                                                                                 margin-bottom: 1.2rem;">
-                            <table class="table table-dark  table-hover w-100">
-                                <tr class="w-100">
+                                <% if (admin.name) {%>
+                                    <p class="text-white-50 mb-4"><%= admin.name %></p>
+                                <% } else { %>
+                                    <p class="text-white-50 mb-4"> <%= "User" %> </p>   
+                                <% } %>
                                 
-                                  <td>Name :</td>
-                                  <% if(admin) { %>
-                                  <td><%= admin.name %></td>
-                                 
-                                </tr>
-
-                                <tr class="w-100">
-                                
-                                    <td>E-mail :</td>
-                                    <td><%= admin.email %></td>
-                                   
-                                  </tr>
-                                  <tr class="w-100">
-                                
-                                    <td>Mobile :</td>
-                                    <td><%= admin.mobile %></td>
-                                   
-                                  </tr>
-                                  
-                               <% } %>
-                              </table>
-
-                            <h2 style="margin-top: 2rem;">
-                                <a href="/admin/dashboard"> 
-                                    <button type="button" class="btn btn-outline-light btn-sm px-5" style="border-color: #224998;">
-                                        User Dashboard &#8594;
-                                    </button>
-                                </a>
-                            </h2>
-
-                            <div style="display:flex; gap:25px; justify-content:center; align-items:baseline; margin-top: 1rem;">
-                                <h4>
-                                    <a href="/admin/edit-self?id=<%=admin._id%>">
-                                         <button type="button" class="btn btn-outline-light btn-sm px-5" style="border-color: #BA376F;">
-                                            Edit
-                                         </button>
-                                    </a>
-                                </h4>        
-                                <h4>
-                                    <a href="/admin/logout">
-                                         <button type="button" class="btn btn-outline-light btn-sm px-5" style="border-color: #BA376F;">
-                                            Logout
-                                         </button>
-                                    </a>
-                                </h4>
-                            </div>
-                              
+                                <img src="<%=admin.image%>" alt="<%=admin.image%>" height="100px" width="100px" 
+                                    style="border-radius: 46px; outline: 2px solid #F3387F; margin-bottom: 1.2rem;">
+                                <table class="table table-dark  table-hover w-100">
+                                    <tr class="w-100">
                                     
-                  </div>
-      
-                
-      
+                                        <td>Name :</td>
+                                        <% if(admin) { %>
+                                        <td><%= admin.name %></td>
+                                        
+                                    </tr>
+                                    <tr class="w-100">
+                                    
+                                        <td>E-mail :</td>
+                                        <td><%= admin.email %></td>
+                                    
+                                    </tr>
+                                    <tr class="w-100">
+                                    
+                                        <td>Mobile :</td>
+                                        <td><%= admin.mobile %></td>
+                                    
+                                    </tr>
+
+                                <% } %>
+                                </table>
+
+                                <h2 style="margin-top: 2rem;">
+                                    <a href="/admin/dashboard"> 
+                                        <button type="button" class="btn btn-outline-light btn-sm px-5" style="border-color: #224998;">
+                                            User Dashboard &#8594;
+                                        </button>
+                                    </a>
+                                </h2>
+
+                                <div style="display:flex; gap:25px; justify-content:center; align-items:baseline; margin-top: 1rem;">
+                                    <h4>
+                                        <a href="/admin/edit-self?id=<%=admin._id%>">
+                                            <button type="button" class="btn btn-outline-light btn-sm px-5" style="border-color: #BA376F;">
+                                                Edit
+                                            </button>
+                                        </a>
+                                    </h4>        
+                                    <h4>
+                                        <a href="/admin/logout">
+                                            <button type="button" class="btn btn-outline-light btn-sm px-5" style="border-color: #BA376F;">
+                                                Logout
+                                            </button>
+                                        </a>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </section>
+    </section>
 
 <%- include("../partials/footer", {
     scripts: `

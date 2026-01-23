@@ -38,12 +38,12 @@
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
 }
 
-.dashboard-logo-container {
+.mini-logo-container {
     top: 3rem;
     right: 10rem;
 }
 
-.dashboard-logo-container .logo-img {
+.mini-logo-container .logo-img {
     object-fit: cover;
     width: 5rem;
     padding: 0.25rem;
@@ -80,6 +80,18 @@
 .dashboard-table th.desc::after {
     content: " ▼";
     font-size: 12px;
+}
+
+.dashboard-table #table-img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+    outline: 1.7px solid #7d2359;
+    outline-offset: 1.3px;
+}
+
+.dashboard-table td {
+    vertical-align: middle;
 }
 
 .toast {

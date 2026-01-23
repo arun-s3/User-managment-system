@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="/public/css/user-login.css">
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@700&family=Figtree:wght@700&display=swap" rel="stylesheet">
-</head>
-<body>
+
+<%- include('../partials/head', { useBootstrap: false, useGoogleFonts: true }) %>
+
     <div class="container">
         <div class="pic2"></div>
         <img src="https://store-images.s-microsoft.com/image/apps.28471.14139628370441750.28b315c6-e587-4ac5-8b42-4388ed4a2f09.d5ba0d3b-63ca-4d9d-ba00-47fcfa6b02e1" alt="">
@@ -50,7 +41,9 @@
     </div>
     <div class="pic">
     </div>
-    <script src="/public/js/login.js"></script>
 
-</body>
-</html>
+<%- include("../partials/footer", {
+    scripts: `
+        <script src="/public/js/login.js"></script>
+    `
+}) %>

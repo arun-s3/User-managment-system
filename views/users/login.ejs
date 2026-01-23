@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="/public/css/user-login.css">
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@700&family=Figtree:wght@700&display=swap" rel="stylesheet">
-</head>
-<body>
+
+<%- include('../partials/head', { useBootstrap: false, useGoogleFonts: true }) %>
+
     <div class="container">
         <div class="pic2"></div>
         <img src="/public/Images/logo1.png" alt="Welcome">
@@ -49,6 +40,9 @@
     </div>
     <div class="pic">
     </div>
-    <script src="/public/js/login.js"></script>
-</body>
-</html>
+
+<%- include("../partials/footer", {
+    scripts: `
+        <script src="/public/js/login.js"></script>
+    `
+}) %>

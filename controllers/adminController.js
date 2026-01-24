@@ -11,8 +11,10 @@ const securepassword = async(password)=>{
     }
     catch(error){
         console.error(error);
+        throw new Error("Password encryption failed")
     }
 } 
+
 
 const loginLoad = async(req,res)=> {
         try{
@@ -51,58 +53,66 @@ const verifyLogin = async(req,res)=> {
         }
     }
     catch(error){
-         console.error(error)
+        console.error(error)
+        req.session.toast = {
+            type: "error",
+            message: "Internal Server error. Please try again later.",
+        }
+        return res.redirect("/admin/")
     }
 }
+
 
 const loadDashboard = async(req,res)=>{
-    if(req.session.admin){
-        try{
-            const id = req.session.admin;
-            const adminData = await User.findOne({ _id: id }).lean()
+    try{
+        const id = req.session.admin;
+        const adminData = await User.findOne({ _id: id }).lean()
 
-            res.render("admin/home", { admin: adminData, toast: getToast(req) })
-        }
-        catch(error){
-             console.error(error)
-        }
+        res.render("admin/home", { admin: adminData, toast: getToast(req) })
     }
-    else{
-        res.redirect('/admin')
+    catch(error){
+        console.error(error)
+        req.session.toast = {
+            type: "error",
+            message: `Internal server error--${error.message}`,
+        }
+        return res.redirect("/admin")
     }
-    
 }
+
 
 const logout = async(req,res)=>{
-    if(req.session.admin){
-        try{
-            req.session.destroy();
-            res.redirect('/admin');
-        }
-        catch(error){
-            console.error(error)
-        }
+    try{
+        req.session.destroy();
+        res.redirect('/admin');
     }
-    else{
-        res.redirect('/admin')
+    catch(error){
+        console.error(error)
+        req.session.toast = {
+            type: "error",
+            message: `Internal server error--${error.message}`,
+        }
+        return res.redirect("/admin/home")
     }
 }
 
+
 const adminDashboard = async (req,res)=>{
-    if(req.session.admin){        
-        try{    
-            const usersData = await User.find({ is_admin: 0 }).lean() 
-            const adminData = await User.findOne({ is_admin: 1 }).lean()
-            res.render("admin/dashboard", { users: usersData, admin: adminData, toast: getToast(req) })
-        }
-        catch(error){
-            console.error(error);
-        }
+    try{    
+        const usersData = await User.find({ is_admin: 0 }).lean() 
+        const adminData = await User.findOne({ is_admin: 1 }).lean()
+        res.render("admin/dashboard", { users: usersData, admin: adminData, toast: getToast(req) })
     }
-    else{
-        res.redirect('/admin');
+    catch(error){
+        console.error(error)
+        req.session.toast = {
+            type: "error",
+            message: `Internal server error--${error.message}`,
+        }
+        return res.redirect("/admin/home")
     }
 }
+
 
 const loadEditSelf = async(req,res)=>{
     try{
@@ -111,100 +121,125 @@ const loadEditSelf = async(req,res)=>{
         if(admin){
             res.render('admin/edit-self',{admin:admin});
         }
-        else{
-            res.redirect('/admin');
-        }
     }
     catch(error){
-        console.error(error);
+        console.error(error)
+        req.session.toast = {
+            type: "error",
+            message: `Internal server error--${error.message}`,
+        }
+        return res.redirect("/admin/home")
     }
 }
+
 
 const editSelf = async(req,res)=>{
     try{
         const id = req.body.id;
         const password = req.body.password;
-        // const image = req.file.filename;
         const spassword = await securepassword(password);
         if(req.file){
-            const adminData = await User.findOneAndUpdate({_id:id},{$set:{name:req.body.name, email:req.body.email, mobile:req.body.mno, password:spassword, image:req.file.filename }})
+            await User.findOneAndUpdate(
+                { _id: id },
+                {
+                    $set: {
+                        name: req.body.name,
+                        email: req.body.email,
+                        mobile: req.body.mno,
+                        password: spassword,
+                        image: req.file.path,
+                    },
+                },
+            )
         }
         else{
-         const adminData = await User.findOneAndUpdate({_id:id},{$set:{name:req.body.name, email:req.body.email, mobile:req.body.mno, password:spassword, }})
-
+            await User.findOneAndUpdate(
+                { _id: id },
+                {
+                    $set: {
+                        name: req.body.name,
+                        email: req.body.email,
+                        mobile: req.body.mno,
+                        password: spassword,
+                    },
+                },
+            )
         }
 
         req.session.toast = {
             type: "success",
             message: "Updated profile successfully!",
         }
-        res.redirect("/admin/home")
+        return res.redirect("/admin/home")
     }
     catch(error){
+        console.error(error)
         req.session.toast = {
             type: "error",
             message: error.message,
         }
-        console.error(error);
+        return res.redirect("/admin/home")
     }
 }
+
 
 const LoadNewUser= async(req,res)=>{
-    if(req.session.admin){
-        try{
-            const adminData = await User.findOne({ is_admin: 1 }).lean()
-            res.render('admin/new-user',{admin:adminData.name});
-        }
-        catch(error){
-            console.error(error);
-        }
+    try{
+        const adminData = await User.findOne({ is_admin: 1 }).lean()
+        res.render('admin/new-user',{admin:adminData.name});
     }
-    else{
-        res.redirect('/admin')
+    catch(error){
+        console.error(error);
+        req.session.toast = {
+            type: "error",
+            message: `Internal server error--${error.message}`,
+        }
+        return res.redirect("/admin/dashboard")
     }
 }
+
 
 const addUser = async(req,res)=>{
-    if(req.session.admin){
-        try{
-            const spassword = await securepassword(req.body.password);
-            
-            const user = new User({
-                name:req.body.name,
-                email:req.body.email,
-                mobile:req.body.mno,
-                image:req.file.filename,
-                password:spassword,
-                is_admin: false
-            })
-            
-            const userData = await user.save();
-            if(userData){
-                req.session.toast = {
-                    type: "success",
-                    message: "Created new user successfully!",
-                }
-                res.redirect('/admin/dashboard')
+    try{
+        const spassword = await securepassword(req.body.password);
+        
+        const user = new User({
+            name:req.body.name,
+            email:req.body.email,
+            mobile:req.body.mno,
+            image:req.file.path,
+            password:spassword,
+            is_admin: false
+        })
+        
+        const userData = await user.save();
+        if(userData){
+            req.session.toast = {
+                type: "success",
+                message: "Created new user successfully!",
             }
-            else{
-                req.session.toast = {
-                    type: "error",
-                    message: "Try again later!",
-                }
-                res.render('admin/new-user',{message: 'Something went wrong!'})
-            }
+            return res.redirect("/admin/dashboard")
         }
-        catch(error){
-            console.error(error);
+        else{
+            req.session.toast = {
+                type: "error",
+                message: "Try again later!",
+            }
+            return res.render("admin/new-user", { message: "Something went wrong!" })
         }
     }
-    else{
-        res.redirect('/admin');
+    catch(error){
+        console.error(error);
+        req.session.toast = {
+            type: "error",
+            message: `Internal server error--${error.message}`,
+        }
+        return res.redirect("/admin/dashboard")
     }
 }
 
+
 const loadEditUser = async(req,res)=>{
-   if(req.session.admin){
     try{
         const id = req.query.id;
         const userData = await User.findById({ _id: id }).lean() 
@@ -212,95 +247,116 @@ const loadEditUser = async(req,res)=>{
             res.render('admin/edit-user',{user: userData});
         }
         else{
-            res.redirect('/admin/dashboard');
+            req.session.toast = {
+                type: "error",
+                message: `User not available`,
+            }
+            return res.redirect("/admin/dashboard")
         }
         
     }
     catch(error){
         console.error(error);
+        req.session.toast = {
+            type: "error",
+            message: `Internal server error--${error.message}`,
+        }
+        return res.redirect("/admin/dashboard")
     }
-   }
-   else{
-    res.redirect('/admin')
-   }
 }
 
+
 const updateUser = async(req,res)=>{
-if(req.session.admin)
     try{
         const id = req.body.id;
         if(req.file)
         {
-            const userData = await User.findByIdAndUpdate({_id:id},{$set:{name:req.body.name, email:req.body.email, mobile:req.body.mno, image:req.file.filename}})
+            await User.findByIdAndUpdate(
+                { _id: id },
+                {
+                    $set: {
+                        name: req.body.name,
+                        email: req.body.email,
+                        mobile: req.body.mno,
+                        image: req.file.path,
+                    },
+                },
+            )
         }
         else{
-            const userData = await User.findByIdAndUpdate({_id:id},{$set:{name:req.body.name, email:req.body.email, mobile:req.body.mno}})
+            await User.findByIdAndUpdate(
+                { _id: id },
+                {
+                    $set: {
+                        name: req.body.name,
+                        email: req.body.email,
+                        mobile: req.body.mno,
+                    },
+                },
+            )
         }
         req.session.toast = {
             type: "success",
             message: "Updated the user successfully!",
         }
-        res.redirect('/admin/dashboard');
+        return res.redirect("/admin/dashboard")
     }
     catch(error){
+        console.error(error)
         req.session.toast = {
             type: "error",
-            message: error.message,
+            message: `Internal server error--${error.message}`,
         }
-        console.error(error);
+        return res.redirect("/admin/dashboard")
     }
-else{
-    res.redirect('/admin')
-}
 }
 
+
 const deleteUser = async(req,res)=>{
-   if(req.session.admin){
     try{
         const id = req.query.id;
-        const userData = await User.deleteOne({_id:id});
+        await User.deleteOne({_id:id});
         req.session.toast = {
             type: "success",
             message: "Deleted the user successfully!",
         }
-        res.redirect('/admin/dashboard')
+        return res.redirect("/admin/dashboard")
     }
     catch(error){
+        console.error(error);
         req.session.toast = {
             type: "error",
-            message: error.message,
+            message: `Internal server error--${error.message}`,
         }
-        console.error(error);
+        return res.redirect("/admin/dashboard")
     }
-   }
-   else{
-    res.redirect('/admin')
-   }
 }
 
+
 const searchUser = async(req,res)=>{
-        try{
-            if(req.session.admin){
-                const searchData = req.body.search;
-                
-                const result = await User.find({
-                    $and: [{ name: { $regex: searchData, $options: "i" } }, { is_admin: 0 }],
-                }).lean()
+    try{
+        const searchData = req.body.search;
         
-                const admin = await User.findOne({is_admin:1});
-                        
-            if(result==[]){result=null;}
-            res.render('admin/dashboard',{ users: result, admin: admin});
-        }
-        else{
-            res.redirect('/admin');
-        }
+        const result = await User.find({
+            $and: [{ name: { $regex: searchData, $options: "i" } }, { is_admin: 0 }],
+        }).lean()
+
+        const admin = await User.findOne({is_admin:1});
+                    
+        if(result==[]){result=null;}
+        console.log("result---->", result)
+        res.render("admin/dashboard", { users: result, admin: admin, toast: getToast(req) })
     }
     catch(error){
         console.error(error);
+        req.session.toast = {
+            type: "error",
+            message: `Internal server error--${error.message}`,
+        }
+        return res.redirect("/admin/dashboard")
     }
-
-    
 }
+
+
 module.exports = {loginLoad, verifyLogin, loadDashboard, logout, adminDashboard, loadEditSelf, editSelf,
                   LoadNewUser, addUser, loadEditUser, updateUser, deleteUser, searchUser}

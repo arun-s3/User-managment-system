@@ -7,20 +7,28 @@ const getToast = require("../Utils/getToast")
 const securepassword = async(password)=>{
     try {
         return await bcrypt.hash(password, 10)
-    } catch (error) {
+    }
+    catch (error) {
         console.error(error)
+        throw new Error("Password encryption failed")
     }
 }
+
 
 const loadRegister = async (req,res)=>{
     try{
         const isAdmin = req.query.admin === "true"
 
-        res.render("users/registration", {isAdmin})
+        res.render("users/registration", { isAdmin, toast: getToast(req) }) 
     }
     catch(error)
     {
         console.error(error);
+        req.session.toast = {
+            type: "error",
+            message: "Internal Server error. Please try again later.",
+        }
+        return res.redirect("/")
     }
 }
 
@@ -49,7 +57,7 @@ const insertUser = async (req, res) => {
             password: spassword,
             mobile: req.body.mno,
             email: req.body.email,
-            image: req.file.filename,
+            image: req.file.path,
             is_admin: isAdmin ? 1 : 0,
         })
 
@@ -60,23 +68,20 @@ const insertUser = async (req, res) => {
                 message: "Your registration is successful!",
             }
             if (isAdmin) {
-                res.redirect("/admin")
-            } else res.redirect("/")
-        }else{
-            res.render("users/registration", {
-                message:"Registration failed. Please try again!",
-                isAdmin,
-            })
+                return res.redirect("/admin")
+            } else return res.redirect("/")
         }
     }
     catch (error) {
-        res.render("users/registration", {
-            message: "Internal server error. Please check your network and try again later!",
-            isAdmin,
-        })
-        console.error(error);
+        console.error(error)
+        req.session.toast = {
+            type: "error",
+            message: `Internal Server error. ${error.message}`,
+        }
+        return res.redirect("/")
     }
 }
+
 
 const loginLoad = async(req,res)=>{
     if(req.session.user){
@@ -90,8 +95,8 @@ const loginLoad = async(req,res)=>{
             console.error(error);
         }
     }
-    
 }
+
 
 const verifyLogin = async(req,res)=>{
    
@@ -104,23 +109,27 @@ const verifyLogin = async(req,res)=>{
         if(userData){
             const passwordMatch = await bcrypt.compare(password, userData.password);
             if(passwordMatch){
-               
                     req.session.user = userData._id;
-                    res.redirect('/home');
-                
+                    return res.redirect("/home")
             }
             else{
-                res.render('users/login', {message: "Please check your password"})
+                return res.render("users/login", { message: "Please check your password" })
             }
         }
         else{
-            res.render('users/login', {message:"Please put your valid email and password"})
+            return res.render("users/login", { message: "Please put your valid email and password" })
         }
     }
     catch(error){
         console.error(error);
+        req.session.toast = {
+            type: "error",
+            message: "Internal Server error. Please try again later.",
+        }
+        return res.redirect("/")
     }
 }
+
 
 const loadHome = async(req,res)=>{
     try{
@@ -129,8 +138,14 @@ const loadHome = async(req,res)=>{
     }
     catch(error){
         console.error(error);
+        req.session.toast = {
+            type: "error",
+            message: "Internal Server error. Please try again later.",
+        }
+        return res.redirect("/")
     }
 }
+
 
 const userLogout = async(req,res)=>{
     try{
@@ -139,8 +154,14 @@ const userLogout = async(req,res)=>{
     }
     catch(error){
         console.error(error);
+        req.session.toast = {
+            type: "error",
+            message: error.message,
+        }
+        return res.redirect("/home")
     }
 }
+
 
 const editLoad = async(req,res)=>{
     try{
@@ -150,37 +171,70 @@ const editLoad = async(req,res)=>{
             res.render('users/edit',{user:userData});
         }
         else{
-            res.redirect('/home');
+            req.session.toast = {
+                type: "error",
+                message: "Error while updating profile. Please try again later.",
+            }
+            return res.redirect("/home")
         }
     }
     catch(error){
         console.error(error);
+        req.session.toast = {
+            type: "error",
+            message: "Internal Server error. Please try again later.",
+        }
+        return res.redirect("/home")
     }
 }
+
 
 const updateProfile = async(req,res)=>{
     try{
 
         const spassword = await securepassword(req.body.password);
         if(req.file){
-            const userData = await User.findByIdAndUpdate({ _id:req.body.id},{$set:{name:req.body.name, email:req.body.email, mobile:req.body.mno, password:spassword, image:req.file.filename}});
+            await User.findByIdAndUpdate(
+                { _id: req.body.id },
+                {
+                    $set: {
+                        name: req.body.name,
+                        email: req.body.email,
+                        mobile: req.body.mno,
+                        password: spassword,
+                        image: req.file.path,
+                    },
+                },
+            )
         }
         else{
-            const userData = await User.findByIdAndUpdate({_id:req.body.id},{$set:{name:req.body.name, email:req.body.email, mobile:req.body.mno, password:spassword}});
+            await User.findByIdAndUpdate(
+                { _id: req.body.id },
+                {
+                    $set: {
+                        name: req.body.name,
+                        email: req.body.email,
+                        mobile: req.body.mno,
+                        password: spassword,
+                    },
+                },
+            )
         }
         req.session.toast = {
             type: "success",
             message: "Updated your profile successfully!",
         }
-        res.redirect('/home')
+        return res.redirect("/home")
     }
     catch(error){
+        console.error(error)
         req.session.toast = {
             type: "error",
             message: error.message,
         }
-        console.error(error);
+        return res.redirect("/home")
     }
 }
+
 
 module.exports = {loadRegister, insertUser, loginLoad, verifyLogin, loadHome, userLogout, editLoad, updateProfile}; 

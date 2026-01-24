@@ -1,11 +1,13 @@
 
 const isLogin = async(req,res,next)=>{
     try{
-        if(req.session.admin){
+        if(req.session.admin && !req.session.user){
             next()
         }
-        else{
-            res.redirect('/admin')
+        else if(req.session.user){
+            res.redirect("/")
+        }else{
+            res.redirect("/admin")
         }
     }
     catch(error){
@@ -18,6 +20,9 @@ const isLogout = async(req,res,next)=>{
     try{
         if(req.session.admin){
             res.redirect('/admin/home')
+        }
+        if(req.session.user){
+            res.redirect("/")
         }
         next();
     }

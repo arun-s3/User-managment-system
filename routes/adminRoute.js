@@ -2,7 +2,7 @@ const express = require('express');
 const admin_route = express();
 
 const session = require('express-session');
-const config = require('../config/config.js')
+const config = require('../config/session.js')
 const nocache = require("nocache")
 admin_route.use(nocache())
 admin_route.use(session({secret: config.sessionSecret,
@@ -41,11 +41,11 @@ admin_route.get('/edit-self', adminAuth.isLogin, adminController.loadEditSelf);
 admin_route.post('/edit-self', upload.single('image'), adminController.editSelf);
 
 admin_route.get('/new-user', adminAuth.isLogin, adminController.LoadNewUser);
-admin_route.post('/new-user', upload.single('image'), adminController.addUser);
+admin_route.post('/new-user', upload.single('image'), adminAuth.isLogin, adminController.addUser);
 admin_route.get('/edit-user', adminAuth.isLogin, adminController.loadEditUser);
-admin_route.post('/edit-user', upload.single('image'), adminController.updateUser);
-admin_route.get('/delete-user', adminController.deleteUser);
-admin_route.post('/search-user', adminController.searchUser);
+admin_route.post("/edit-user", upload.single("image"), adminAuth.isLogin, adminController.updateUser)
+admin_route.get("/delete-user", adminAuth.isLogin, adminController.deleteUser)
+admin_route.post("/search-user", adminAuth.isLogin, adminController.searchUser)
 
 admin_route.get('/*', (req,res)=>{
     res.redirect('/admin');

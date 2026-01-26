@@ -2,6 +2,17 @@
 
     <%- include('../partials/logo', { type: 'mini' }) %>
 
+    <% if (typeof toast !== "undefined" && toast) { %>
+        <script>
+          window.__TOAST__ = {
+            message: "<%= toast.message %>",
+            type: "<%= toast.type %>"
+          }
+        </script>
+    <% } %>
+
+    <div id="toast" class="toast"></div>
+
     <section class="min-vh-100 bg-custom">
         <div class="container py-1 h-100">
             <div class="row d-flex justify-content-center align-items-center w-100 h-100">
@@ -16,23 +27,38 @@
                                 Add new user
                             </h2>
 
-                            <form action="" method="post" id="form" enctype="multipart/form-data">
+                            <form action="/admin/new-user" method="post" id="form" enctype="multipart/form-data">
                             
                                 <div class="form-outline form-white mb-3">
                                     <label class="form-label" for="name">Name</label>
-                                    <input type="text" id="name" class="form-control form-control-lg" name="name" required />
+                                    <% if(typeof name !=='undefined'){%>
+                                    <input type="text" id="name" class="form-control form-control-lg" name="name" 
+                                        value="<%=name%>" required />
+                                    <%}else{%>
+                                        <input type="text" id="name" class="form-control form-control-lg" name="name" required />
+                                    <%}%>
                                 </div>
                                 <div id="error1" style="display: none;" class="alert alert-danger err"></div>
 
                                 <div class="form-outline form-white mb-3">
                                     <label class="form-label" for="email">Email</label>
+                                    <% if(typeof email !=='undefined'){%>
+                                    <input type="email" id="email" class="form-control form-control-lg" name="email"
+                                         value="<%=email%>" required />
+                                    <%}else{%>
                                     <input type="email" id="email" class="form-control form-control-lg" name="email" required />
+                                    <%}%>
                                 </div>
                                 <div id="error2" style="display: none;" class="alert alert-danger err"></div>
 
                                 <div class="form-outline form-white mb-3">
                                     <label class="form-label" for="mobile">Mobile</label>
+                                    <% if(typeof mobile !=='undefined'){%>
+                                    <input type="tel" id="mobile" class="form-control form-control-lg" name="mno"
+                                         value="<%=mobile%>" required />
+                                    <%}else{%>
                                     <input type="tel" id="mobile" class="form-control form-control-lg" name="mno" required />
+                                    <%}%>
                                 </div>
                                 <div id="error3" style="display: none;" class="alert alert-danger err"></div>
 
@@ -43,12 +69,13 @@
                                 <div id="error4" style="display: none;" class="alert alert-danger err"></div>
 
                                 <div class="file">
-                                    <input type="file" name="image" id="file" accept="image/*" required>
-                                    <label class="form-label file-label" for="file">Upload Profile Pic</label>
+                                    <input type="file" name="image" id="file" accept="image/*">
+                                    <label class="form-label file-label" for="file">Upload Profile Picture (optional, recommended)</label>
                                 </div>
 
                                 <img src="" height="50px" width="50px" id="profilePreview"
-                                            style="display:none; border-radius: 25px; outline: 2px solid #F3387F; margin-bottom: 1.2rem;"/>
+                                            style="display:none; border-radius: 25px; outline: 2px solid #F3387F;"/>
+                                <p id="img-error" style="display: none;"></p>
 
                                 <div class="dashboard-controls" style="display: flex; justify-content: space-between;">
                                     <input class="btn btn-outline-info btn-lg px-5 mb-3" type="submit" value="Add New User" />
@@ -78,5 +105,6 @@
     scripts: `
         <script src="/public/js/validation.js"></script>
         <script src="/public/js/imagePreviewer.js"></script>
+        <script src="/public/js/toast.js"></script>
     `
 }) %>

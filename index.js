@@ -4,7 +4,6 @@ const path = require("path")
 const nocache = require("nocache")
 const compression = require("compression")
 
-
 const envFile = process.env.NODE_ENV === "production" ? ".env.production" : ".env.development"
 
 require("dotenv").config({
@@ -39,6 +38,15 @@ app.use("/public",
 app.get("/health", (req, res) => {
     res.send("OK")
 })
+
+// app.use((req, res, next) => {
+//     res.safeRedirect = (path) => {
+//         if (res.headersSent) return
+//         res.redirect(path)
+//     }
+//     next()
+// })
+
 
 app.use('/', require("./routes/userRoute"));
 app.use('/admin', require("./routes/adminRoute"));

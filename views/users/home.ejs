@@ -2,7 +2,7 @@
 
 <%- include('../partials/head', { useBootstrap: true, useGoogleFonts: false }) %>
 
-    <% if (toast) { %>
+    <% if (typeof toast !== "undefined" && toast) {  %>
         <script>
         window.__TOAST__ = {
             message: "<%= toast.message %>",
@@ -35,7 +35,7 @@
                                             <p class="text-white-50 mb-4"> <%= "User" %> </p>   
                                             <% } %>
                                             
-                                            <img src="<%=user.image%>" alt="<%=user.image%>" height="100px" width="100px" 
+                                            <img src="<%=user.image%>" alt="<%=user.image%>" height="100px" width="100px" id="home-img" 
                                                 style="border-radius: 46px; outline: 2px solid #F3387F; margin-bottom: 1.2rem;">
                                             <table class="table table-dark  table-hover w-100">
                                                 <tr class="w-100">

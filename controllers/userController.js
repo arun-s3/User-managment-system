@@ -2,6 +2,7 @@ const User = require("../models/userModel")
 const mongoose = require("mongoose")
 const bcrypt = require("bcryptjs")
 const getToast = require("../Utils/getToast")
+const redirectWithToast = require("../Utils/redirectWithToast")
 
 
 const securepassword = async(password)=>{
@@ -24,11 +25,7 @@ const loadRegister = async (req,res)=>{
     catch(error)
     {
         console.error(error);
-        req.session.toast = {
-            type: "error",
-            message: "Internal Server error. Please try again later.",
-        }
-        return res.redirect("/")
+        return redirectWithToast.error(req, res, "Internal Server error. Please try again later.", "/")
     }
 }
 
@@ -37,8 +34,14 @@ const insertUser = async (req, res) => {
     try {
         const isAdmin = req.query.admin === "true"
 
-        const tempData = await User.findOne({ email: req.body.email })
-        if (tempData) {
+        const emailExists = await User.findOne({ email: req.body.email })
+        if (emailExists) {
+            return res.render("users/registration", {
+                message: "This email already exists. Please refill the form!", name: req.body.name, mobile: req.body.mno, isAdmin,
+            })
+        }
+        const mobileExists = await User.findOne({ mobile: req.body.mno })
+        if (mobileExists) {
             return res.render("users/registration", {
                 message: "This email already exists. Please refill the form!", name: req.body.name, mobile: req.body.mno, isAdmin,
             })
@@ -51,6 +54,9 @@ const insertUser = async (req, res) => {
         }
 
         const spassword = await securepassword(req.body.password)
+        if (!spassword) {
+            return redirectWithToast.error(req, res, "Password encryption failed. Please try again.", "/")
+        }
 
         const user = new User({
             name: req.body.name,
@@ -63,22 +69,16 @@ const insertUser = async (req, res) => {
 
         const userData = await user.save()
         if (userData){
-            req.session.toast = {
-                type: "success",
-                message: "Your registration is successful!",
-            }
             if (isAdmin) {
-                return res.redirect("/admin")
-            } else return res.redirect("/")
+                return redirectWithToast.success(req, res, "Your registration is successful!", "/admin")
+            } else {
+                return redirectWithToast.success(req, res, "Your registration is successful!", "/")
+            }
         }
     }
     catch (error) {
         console.error(error)
-        req.session.toast = {
-            type: "error",
-            message: `Internal Server error. ${error.message}`,
-        }
-        return res.redirect("/")
+        return redirectWithToast.error(req, res, `Internal Server error. Please try agan later`, "/")
     }
 }
 
@@ -110,23 +110,19 @@ const verifyLogin = async(req,res)=>{
             const passwordMatch = await bcrypt.compare(password, userData.password);
             if(passwordMatch){
                     req.session.user = userData._id;
-                    return res.redirect("/home")
+                    return redirectWithToast.success(req, res, "Welcome home!", "/home")
             }
             else{
-                return res.render("users/login", { message: "Please check your password" })
+                return redirectWithToast.error(req, res, "Please check your password", "/")
             }
         }
         else{
-            return res.render("users/login", { message: "Please put your valid email and password" })
+            return redirectWithToast.error(req, res, "Please enter your valid email and password", "/")
         }
     }
     catch(error){
         console.error(error);
-        req.session.toast = {
-            type: "error",
-            message: "Internal Server error. Please try again later.",
-        }
-        return res.redirect("/")
+        return redirectWithToast.error(req, res, "Internal Server error. Please try again later.", "/")
     }
 }
 
@@ -134,105 +130,93 @@ const verifyLogin = async(req,res)=>{
 const loadHome = async(req,res)=>{
     try{
         const userData = await User.findById({ _id: req.session.user }).lean()
-        res.render("users/home", { user: userData, toast: getToast(req) })
+        return res.render("users/home", { user: userData, toast: getToast(req) })
     }
     catch(error){
         console.error(error);
-        req.session.toast = {
-            type: "error",
-            message: "Internal Server error. Please try again later.",
-        }
-        return res.redirect("/")
+        return redirectWithToast.error(req, res, "Internal Server error. Please try again later.", "/")
     }
 }
 
 
 const userLogout = async(req,res)=>{
     try{
-        req.session.destroy();
-        res.redirect("/");
+        req.session.toast = {
+            type: "success",
+            message: "Logged out successfully!",
+        }
+
+        delete req.session.user
+        res.redirect("/")
     }
     catch(error){
         console.error(error);
-        req.session.toast = {
-            type: "error",
-            message: error.message,
-        }
-        return res.redirect("/home")
+        return redirectWithToast.error(req, res, "Internal Server error. Please try again later.", "/home")
     }
 }
 
 
 const editLoad = async(req,res)=>{
     try{
-        const id = req.query.id;
-        const userData = await User.findById({ _id: id }).lean()
+        const userData = await User.findById({ _id: req.session.user }).lean()
         if(userData){
-            res.render('users/edit',{user:userData});
+            res.render('users/edit',{ user: userData, toast: getToast(req) });
         }
         else{
-            req.session.toast = {
-                type: "error",
-                message: "Error while updating profile. Please try again later.",
-            }
-            return res.redirect("/home")
+            return redirectWithToast.error(req, res, "Error while updating profile. Please try again later.", "/home")
         }
     }
     catch(error){
         console.error(error);
-        req.session.toast = {
-            type: "error",
-            message: "Internal Server error. Please try again later.",
-        }
-        return res.redirect("/home")
+        return redirectWithToast.error(req, res, "Internal Server error. Please try again later.", "/home")
     }
 }
 
 
 const updateProfile = async(req,res)=>{
     try{
+        const id = req.body.id
+        const { name, email, mno: mobile, password } = req.body
 
-        const spassword = await securepassword(req.body.password);
-        if(req.file){
-            await User.findByIdAndUpdate(
-                { _id: req.body.id },
-                {
-                    $set: {
-                        name: req.body.name,
-                        email: req.body.email,
-                        mobile: req.body.mno,
-                        password: spassword,
-                        image: req.file.path,
-                    },
+        const spassword = await securepassword(password);
+        if (!spassword) {
+            return redirectWithToast.error(req, res, "Password encryption failed. Please try again.", "/edit")
+        }
+
+        const user = await User.findById(id)
+
+        if (user.email.trim() !== email.trim()) {
+            const emailExists = await User.findOne({ email })
+            if (emailExists) {
+                return redirectWithToast.error(req, res, "Email already exists. Please use another email.", "/edit")
+            }
+        }
+
+        if (user.mobile.toString().trim() !== mobile.toString().trim()) {
+            const mobileExists = await User.findOne({ mobile })
+            if (mobileExists) {
+                return redirectWithToast.error(req, res, "Mobile number already exists. Please use another number.", "/edit")
+            }
+        }
+
+        await User.findByIdAndUpdate(
+            { _id: id },
+            {
+                $set: {
+                    name,
+                    email,
+                    mobile,
+                    password: spassword,
+                    image: req?.file?.path ? req.file.path : user.image,
+                    is_admin: false
                 },
-            )
-        }
-        else{
-            await User.findByIdAndUpdate(
-                { _id: req.body.id },
-                {
-                    $set: {
-                        name: req.body.name,
-                        email: req.body.email,
-                        mobile: req.body.mno,
-                        password: spassword,
-                    },
-                },
-            )
-        }
-        req.session.toast = {
-            type: "success",
-            message: "Updated your profile successfully!",
-        }
-        return res.redirect("/home")
+            },
+        )
+        return redirectWithToast.success(req, res, "Updated your profile successfully!", "/home")
     }
     catch(error){
         console.error(error)
-        req.session.toast = {
-            type: "error",
-            message: error.message,
-        }
-        return res.redirect("/home")
+        return redirectWithToast.error(req, res, "Internal Server error. Please try again later.", "/edit")
     }
 }
 

@@ -60,6 +60,17 @@
     font-size: 13px;
 }
 
+#home-img,
+#profilePreview {
+    object-fit: cover;
+}
+
+#img-error {
+    margin-bottom: 1.2rem;
+    font-size: 13px;
+    color: #dc3545;
+}
+
 .dashboard-table .sortable {
     cursor: pointer;
     user-select: none;
@@ -90,6 +101,7 @@
     height: 100px;
     width: 100px;
     border-radius: 50px;
+    object-fit: cover;
     outline: 1.7px solid #7d2359;
     outline-offset: 1.3px;
 }

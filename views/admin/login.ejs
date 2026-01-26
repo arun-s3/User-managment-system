@@ -1,7 +1,7 @@
 
 <%- include('../partials/head', { useBootstrap: false, useGoogleFonts: true }) %>
 
-    <% if (toast) { %>
+    <% if (typeof toast !== "undefined" && toast) {  %>
         <script>
         window.__TOAST__ = {
             message: "<%= toast.message %>",

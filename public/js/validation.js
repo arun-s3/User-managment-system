@@ -10,10 +10,13 @@ const error3 = document.getElementById("error3")
 name.addEventListener("blur",nameValidator);
 email.addEventListener("blur",emailValidator);
 mobile.addEventListener("blur",mobileValidator);
+
+let password = null;
+let error4 = null;
 if(document.getElementById("password"))
 {
-    const password = document.getElementById("password")
-    const error4 = document.getElementById("error4")
+    password = document.getElementById("password")
+    error4 = document.getElementById("error4")
     password.addEventListener("blur",passwordValidator);
 }
 
@@ -131,7 +134,7 @@ const form = document.getElementById("form");
 form.addEventListener("submit",function(event){
     
     if(!(document.getElementById("password")))
-    { const error4={};
+    { error4={};
       error4.textContent="";}
     else{error4.textContent="";}
 

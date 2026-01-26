@@ -1,10 +1,10 @@
 
 <%- include('../partials/head', { useBootstrap: true, useGoogleFonts: false }) %>
 
-    <% if (toast) { %>
+    <% if (typeof toast !== "undefined" && toast) { %>
         <script>
         window.__TOAST__ = {
-            message: "<%= toast.message %>",
+            message: "<%- toast.message %>",
             type: "<%= toast.type %>"
         }
         </script>

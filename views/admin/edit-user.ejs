@@ -3,6 +3,17 @@
 
     <%- include('../partials/logo', { type: 'mini' }) %>
 
+    <% if (typeof toast !== "undefined" && toast) { %>
+        <script>
+          window.__TOAST__ = {
+            message: "<%= toast.message %>",
+            type: "<%= toast.type %>"
+          }
+        </script>
+    <% } %>
+
+    <div id="toast" class="toast"></div>
+
     <section class="min-vh-100 bg-custom">
         <div class="container py-1 h-100">
             <div class="row d-flex justify-content-center align-items-center w-100 h-100">
@@ -21,7 +32,14 @@
                         </h2>
                     </div>
 
-                    <form action="" method="post" id="form" enctype="multipart/form-data">
+                    <form action="/admin/edit-user?id=<%= user._id %>" method="post" id="form" enctype="multipart/form-data">
+
+                        <% if(typeof message !== 'undefined') {%>
+                        <p style="color:red;"> <%= message%></p>
+                        <%}else if(typeof message !== 'undefined'){ %>
+                            <p style="color:green;"> <%= message%></p>
+                        <% } %>
+
                         <% if(user) { %>
                         <div class="form-outline form-white mb-3">
                             <label class="form-label" for="name">Name</label>
@@ -47,10 +65,11 @@
                         <p><div id="error3" style="display: none;" class="alert alert-danger err"></div></p>
 
                         <div class="file">
-                            <input type="file" name="image" id="file"  style="font-size:12px;">
+                            <input type="file" name="image" id="file" accept="image/*" style="font-size:12px;">
                             <label class="form-label file-label" for="file" style="display: flex; justify-content: flex-start;">
-                                Choose Profile Pic
+                                Upload Profile Picture (optional, recommended)
                             </label>
+                            <p id="img-error" style="display: none;"></p>
                         </div>
 
         
@@ -83,5 +102,6 @@
     scripts: `
         <script src="/public/js/validation.js"></script>
         <script src="/public/js/imagePreviewer.js"></script>
+        <script src="/public/js/toast.js"></script>
     `
 }) %>

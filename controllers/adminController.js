@@ -281,39 +281,100 @@ const updateUser = async(req,res)=>{
     }
 }
 
+const deleteUser = async (req, res) => {
+    try {
+        const id = req.query.id
 
-const deleteUser = async(req,res)=>{
-    try{
-        const id = req.query.id;
-        await User.deleteOne({_id:id});
-        return redirectWithToast.success(req, res, "Deleted the user successfully!", "/admin/dashboard")
+        await User.deleteOne({ _id: id })
+
+        return res.json({ success: true, message: "Deleted the user successfully!",  id })
     }
-    catch(error){
-        console.error(error);
-        return redirectWithToast.error(req, res, "Internal Server error. Please try agan later", "/admin/dashboard")
+    catch (error) {
+        console.error(error)
+        return res.status(500).json({ success: false, message: "Internal Server error. Please try again later" })
     }
 }
 
+const searchUser = async (req, res) => {
+    try {
+        const searchData = req.body.search?.trim() || ""
 
-const searchUser = async(req,res)=>{
-    try{
-        const searchData = req.body.search;
-        
-        const result = await User.find({
-            $and: [{ name: { $regex: searchData, $options: "i" } }, { is_admin: 0 }],
+        const admin = await User.findOne({ is_admin: 1 }).lean()
+
+        let result = []
+
+        result = await User.find({
+            name: { $regex: searchData, $options: "i" },
+            is_admin: 0,
         }).lean()
 
-        const admin = await User.findOne({is_admin:1});
-                    
-        if(result==[]){result=null;}
-        res.render("admin/dashboard", { users: result, admin: admin, toast: getToast(req) })
-    }
-    catch(error){
-        console.error(error);
-        return redirectWithToast.error(req, res, "Internal Server error. Please try agan later", "/admin/dashboard")
+        if (result.length === 0) {
+            result = await User.find({
+                email: { $regex: searchData, $options: "i" },
+                is_admin: 0,
+            }).lean()
+        }
+
+        if (result.length === 0) {
+            result = await User.find({
+                mobile: { $regex: searchData, $options: "i" },
+                is_admin: 0,
+            }).lean()
+        }
+
+        res.render("admin/dashboard", { users: result.length ? result : null, admin, toast: getToast(req) })
+    } 
+    catch (error) {
+        console.error(error)
+        return redirectWithToast.error(req, res, "Internal Server error. Please try again later", "/admin/dashboard")
     }
 }
+
+
+const searchAjaxUser = async (req, res) => {
+    try {
+        const searchData = req.query.search?.trim() || ""
+
+        if (!searchData) {
+            const users = await User.find({ is_admin: 0 }).lean()
+            return res.json(users)
+        }
+
+        let result = []
+
+        result = await User.find({
+            name: { $regex: searchData, $options: "i" },
+            is_admin: 0,
+        }).lean()
+
+        if (result.length === 0) {
+            result = await User.find({
+                email: { $regex: searchData, $options: "i" },
+                is_admin: 0,
+            }).lean()
+        }
+
+        if (result.length === 0 && /^\d+$/.test(searchData)) {
+            result = await User.find({
+                $expr: {
+                    $regexMatch: {
+                        input: { $toString: "$mobile" },
+                        regex: searchData,
+                    },
+                },
+                is_admin: 0,
+            }).lean()
+        }
+
+        res.json(result)
+    }
+    catch (error) {
+        console.error(error)
+        res.status(500).json([])
+    }
+}
+
 
 
 module.exports = {loginLoad, verifyLogin, loadHome, logout, adminDashboard, loadEditSelf, editSelf,
-                  LoadNewUser, addUser, loadEditUser, updateUser, deleteUser, searchUser}
+                  LoadNewUser, addUser, loadEditUser, updateUser, deleteUser, searchUser, searchAjaxUser}

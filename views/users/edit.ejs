@@ -47,7 +47,7 @@
                                     style="border-radius: 46px; outline: 2px solid #F3387F; margin-bottom: 1.2rem;">
                                 <p id="img-error" style="display: none;"></p>
 
-                                <form action="" method="post" id="form" enctype="multipart/form-data">
+                                <form action="/edit" method="post" id="form" enctype="multipart/form-data">
 
                                     <input type="hidden" name="id" value="<%= user._id %>">
 
@@ -105,7 +105,7 @@
                                             <td>Profile Pic</td>
                                             <td>
                                                 <div class="file">
-                                                    <input type="file" name="image" id="file" class="w-100" style="font-size:12px;">
+                                                    <input type="file" name="image" id="file" accept="image/*" class="w-100" style="font-size:12px;">
                                                     <label class="form-label file-label" for="file" 
                                                             style="display: flex; justify-content: flex-start;">
                                                         Upload Profile Picture (optional, recommended)
@@ -118,7 +118,9 @@
                                     </table>
                                 
                                     <h2>
-                                        <input type="submit" class="btn btn-outline-info btn-lg px-5 w-100" value="Update Profile">
+                                        <button class="btn btn-outline-info btn-lg px-5 w-100" type="submit" id="submitBtn">
+                                            Update Profile
+                                        </button>
                                     </h2>        
                                 </form>
 
@@ -141,7 +143,8 @@
 <%- include("../partials/footer", {
     scripts: `
         <script src="/public/js/validation.js"></script>
-        <script src="/public/js/imagePreviewer.js"></script>
+        <script src="/public/js/imgPreviewAndValidate.js"></script>
+        <script src="/public/js/submitLoading.js"></script>
         <script src="/public/js/toast.js"></script>
     `
 }) %>

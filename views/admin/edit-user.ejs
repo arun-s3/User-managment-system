@@ -76,7 +76,9 @@
                         <% } %>
 
                         <div class="dashboard-controls"  style="display:flex; justify-content:space-between">
-                            <input  type="submit" class="btn btn-outline-info btn-lg px-5 mb-3" value="Submit" />
+                            <button class="btn btn-outline-info btn-lg px-5 mb-3" type="submit" id="submitBtn">
+                                Submit
+                            </button>
                             <h2>
                                 <a href="/admin/logout"><button type="button" class="btn btn-outline-light btn-lg px-5" 
                                         style="border-color: #BA376F;">
@@ -101,7 +103,8 @@
 <%- include("../partials/footer", {
     scripts: `
         <script src="/public/js/validation.js"></script>
-        <script src="/public/js/imagePreviewer.js"></script>
+        <script src="/public/js/imgPreviewAndValidate.js"></script>
+        <script src="/public/js/submitLoading.js"></script>
         <script src="/public/js/toast.js"></script>
     `
 }) %>

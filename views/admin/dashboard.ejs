@@ -67,7 +67,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="/admin/delete-user?id=<%=users[i]._id%>">
+                                    <a class="delete-btn" data-id="<%= users[i]._id %>">
                                         <button type="button" class="btn btn-danger px-3">
                                             Delete
                                         </button>
@@ -103,6 +103,8 @@
 <%- include("../partials/footer", {
     scripts: `
         <script src="/public/js/dashboard.js"></script>
+        <script src="/public/js/liveUserSearch.js"></script>
+        <script src="/public/js/deleteUser.js"></script>
         <script src="/public/js/toast.js"></script>
     `
 }) %>

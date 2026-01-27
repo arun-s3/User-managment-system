@@ -88,6 +88,7 @@ const loginLoad = async(req,res)=>{
         res.render("users/login", { toast: getToast(req) })
     } catch (error) {
         console.error(error)
+        res.status(500).render("error/500")
     }
 }
 

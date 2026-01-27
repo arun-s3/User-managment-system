@@ -1,0 +1,129 @@
+
+.notfound-container {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0f0f14;
+}
+
+.notfound-card {
+    background: #24242C;
+    border-radius: 1rem;
+    padding: 3rem 2.5rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    max-width: 420px;
+    width: 100%;
+}
+
+.notfound-code {
+    font-size: 5rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    color: #F3387F;
+    line-height: 1;
+}
+
+.notfound-title {
+    color: wheat;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.notfound-text {
+    color: #b5b5c3;
+    font-size: 0.95rem;
+    margin: 1rem 0 2rem;
+}
+
+.notfound-actions a {
+    display: inline-block;
+    margin: 0.5rem;
+    text-decoration: none;
+}
+
+body {
+    background: linear-gradient(135deg, #0f0f14, #1c1c24);
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-box {
+    max-width: 520px;
+    padding: 3rem;
+    border-radius: 1rem;
+    background: #24242c;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+.error-code {
+    font-size: 6rem;
+    font-weight: 700;
+    color: #f3387f;
+    line-height: 1;
+}
+
+.error-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.error-text {
+    color: #b8b8c5;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+.btn-home {
+    background: #f3387f;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.btn-home:hover {
+    background: #ff4f8f;
+    color: #072654;
+    transform: translateY(-1px);
+}
+
+.btn-primary-glow {
+    padding: 0.6rem 1.4rem;
+    border-radius: 50px;
+    border: 1px solid #F3387F;
+    color: #fff;
+    background: transparent;
+    transition: 0.2s ease;
+}
+
+.btn-primary-glow:hover {
+    background: #F3387F;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(243, 56, 127, 0.6);
+}
+
+.btn-secondary-glow {
+    padding: 0.6rem 1.4rem;
+    border-radius: 50px;
+    border: 1px solid #5a5a6e;
+    color: #b5b5c3;
+    background: transparent;
+    transition: 0.2s ease;
+}
+
+.btn-secondary-glow:hover {
+    background: #5a5a6e;
+    color: #fff;
+}

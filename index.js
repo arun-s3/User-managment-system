@@ -57,5 +57,9 @@ app.get("/health", (req, res) => {
 app.use("/admin", require("./routes/adminRoute"))
 app.use('/', require("./routes/userRoute"));
 
+app.use("*", (req, res) => {
+    res.status(404).render("error/404")
+})
+
 
 app.listen(process.env.PORT || 5000, ()=>console.log("The server is running..."));

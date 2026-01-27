@@ -1,0 +1,26 @@
+
+<%- include('../partials/head', {
+    useBootstrap: true,
+    useGoogleFonts: false,
+    pageCss: ['errors.css']
+}) %>
+
+<div class="notfound-container">
+    <div class="notfound-card">
+        <div class="notfound-code">404</div>
+
+        <div class="notfound-title">Page not found</div>
+
+        <p class="notfound-text">
+            The page you are looking for doesn’t exist.
+        </p>
+
+        <div class="notfound-actions">
+            <a href="/" class="btn-primary-glow">Go to Login</a>
+            <a href="javascript:history.back()" class="btn-secondary-glow">Go Back</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

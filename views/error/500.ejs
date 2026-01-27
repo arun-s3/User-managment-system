@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>500 | Server Error</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f0f14, #1c1c24);
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .error-box {
+            max-width: 520px;
+            padding: 3rem;
+            border-radius: 1rem;
+            background: #24242c;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        .error-code {
+            font-size: 6rem;
+            font-weight: 700;
+            color: #f3387f;
+            line-height: 1;
+        }
+
+        .error-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .error-text {
+            color: #b8b8c5;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-home {
+            background: #f3387f;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s ease;
+        }
+
+        .btn-home:hover {
+            background: #ff4f8f;
+            color: #072654;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <div class="error-box">
+        <div class="error-code">500</div>
+        <div class="error-title">Internal Server Error</div>
+
+        <p class="error-text">
+            Something went wrong on our end.<br />
+            Please try again later or go back to safety.
+        </p>
+
+        <a href="/" class="btn-home">Go to Home</a>
+    </div>
+</body>
+</html>

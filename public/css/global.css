@@ -1,0 +1,72 @@
+.bg-custom {
+    height: 100%;
+    background-image: url("/public/Images/site-bg.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.err {
+    padding: 5px;
+}
+
+#file {
+    display: flex;
+}
+
+.file-label {
+    font-size: 13px;
+    text-align: left !important;
+    color: #A52968;
+}
+
+.logo-container {
+    padding: 1rem;
+    z-index: 10;
+}
+
+.logo-img {
+    object-fit: cover;
+    height: 4rem;
+    width: 10rem;
+    padding: 0.25rem;
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+}
+
+.logo-img:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+}
+
+.mini-logo-container {
+    top: 3rem;
+    right: 10rem;
+}
+
+.mini-logo-container .logo-img {
+    object-fit: cover;
+    width: 5rem;
+    padding: 0.25rem;
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.25rem;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(10px);
+}
+
+.invite-code::placeholder {
+    font-size: 13px;
+}
+
+#home-img,
+#profilePreview {
+    object-fit: cover;
+}
+
+#img-error {
+    margin-bottom: 1.2rem;
+    font-size: 13px;
+    color: #dc3545;
+}

@@ -61,8 +61,20 @@
                                             
                                             <% } %>
                                             </table>
+
+                                            <div class="user-home-actions">
+                                                <a href="/edit?id=<%=user._id%>" class="btn-site btn-primary-glow w-100">
+                                                    Edit Profile
+                                                </a>
+                                                <a href="/logout" class="btn-site btn-danger-glow w-100">
+                                                        Logout
+                                                </a>
+                                            </div>
+
+
+
                                         
-                                            <h2>
+                                            <!-- <h2>
                                                 <a href="/edit?id=<%=user._id%>">
                                                     <button type="button" class="btn btn-outline-light btn-lg px-5" 
                                                             style="border-color: #BA376F;">
@@ -76,7 +88,7 @@
                                                     <button type="button" class="btn btn-outline-light btn-lg px-5">Logout</button>
                                                 </a>
                                             </h2>
-                                            
+                                             -->
                                 </div>
                         
                             </div>

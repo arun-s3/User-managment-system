@@ -1,5 +1,10 @@
 
-<%- include('../partials/head', { useBootstrap: false, useGoogleFonts: true }) %>
+
+<%- include('../partials/head', {
+    useBootstrap: true,
+    useGoogleFonts: true,
+    pageCss: ['login.css']
+}) %>
 
     <% if (typeof toast !== "undefined" && toast) {  %>
         <script>
@@ -35,8 +40,9 @@
                 <span id="error2" style="display: none;" class="alert alert-danger err"></span>
             </div>
 
-
-            <input type="submit" value="login" id="submit"></input>
+            <button type="submit" id="submitBtn">
+                Submit
+            </button>
         </form>
 
         <a  onclick="myFunction()" href="/register?admin=true">Dont have a account? Sign up as an admin</a>
@@ -58,6 +64,7 @@
 <%- include("../partials/footer", {
     scripts: `
         <script src="/public/js/login.js"></script>
+        <script src="/public/js/submitLoading.js"></script>
         <script src="/public/js/toast.js"></script>
     `
 }) %>

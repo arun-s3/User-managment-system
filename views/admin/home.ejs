@@ -57,7 +57,26 @@
                                 <% } %>
                                 </table>
 
-                                <h2 style="margin-top: 2rem;">
+                                <div class="admin-home-actions">
+
+    <a href="/admin/dashboard" class="btn-site btn-primary-glow w-100">
+        User Dashboard →
+    </a>
+
+    <div class="admin-home-row">
+        <a href="/admin/edit-self?id=<%=admin._id%>" class="btn-site btn-secondary-glow" style="width: 100%;">
+            Edit Profile
+        </a>
+
+        <a href="/admin/logout" class="btn-site btn-danger-glow" style="width: 100%;">
+            Logout
+        </a>
+    </div>
+
+</div>
+
+
+                                <!-- <h2 style="margin-top: 2rem;">
                                     <a href="/admin/dashboard"> 
                                         <button type="button" class="btn btn-outline-light btn-sm px-5" style="border-color: #224998;">
                                             User Dashboard &#8594;
@@ -80,7 +99,7 @@
                                             </button>
                                         </a>
                                     </h4>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

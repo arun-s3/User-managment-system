@@ -78,14 +78,18 @@
                                         <img src="" height="50px" width="50px" id="profilePreview"
                                             style="display:none; border-radius: 25px; outline: 2px solid #F3387F; margin-bottom: 1.2rem;"/>
                                         <br>
-                                        <div style="text-align: center;">
-                                            <input class="btn btn-outline-light btn-lg px-5 text-center" type="submit" value="Sign Up" />
-                                            <p class="mb-0" style="position: relative; top: 40px;">
-                                                Already have an account? <a href="/" class="fw-bold" style="color:#2020DB;" >Login</a>
-                                            </p>
+
+                                        <div class="register-actions">
+                                            <button type="submit" class="btn-site btn-primary-glow w-100" id="submitBtn">
+                                                Create Account
+                                            </button>
                                         
+                                            <p class="register-link">
+                                                Already have an account?
+                                                <a href="/" class="register-login-link">Login</a>
+                                            </p>
                                         </div>
-                                    
+
                                     </form>
                                 </div>
                             </div>
@@ -98,6 +102,7 @@
 <%- include("../partials/footer", {
     scripts: `
         <script src="/public/js/validation.js"></script>
+        <script src="/public/js/submitLoading.js"></script>
     `
 }) %>
 

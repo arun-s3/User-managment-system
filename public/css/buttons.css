@@ -1,0 +1,173 @@
+
+.register-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.register-link {
+    font-size: 14px;
+    color: #bdbdbd;
+}
+
+.register-login-link {
+    color: #4da3ff;
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 4px;
+    transition: 0.2s;
+}
+
+.register-login-link:hover {
+    color: #6bb6ff;
+    text-decoration: underline;
+}
+
+.user-home-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 2rem;
+}
+
+.admin-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.btn-info:hover {
+    background: #02d6ff;
+}
+
+.btn-site {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.8rem 1.2rem;
+    border-radius: 7px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.btn-primary-glow {
+    background: linear-gradient(135deg, #274895, #112c54);
+    color: white;
+}
+
+.btn-primary-glow:hover {
+    transform: translateY(-2px);
+    color: currentColor;
+    box-shadow: 0 12px 30px rgba(13, 202, 240, 0.35);
+}
+
+.btn-danger-glow {
+    background: linear-gradient(135deg, #D23682, #75245F);
+    color: white;
+}
+
+.btn-danger-glow:hover {
+    transform: translateY(-2px);
+    color: currentColor;
+    box-shadow: 0 12px 30px rgba(220, 53, 69, 0.35);
+}
+
+.btn-link-back {
+    text-align: center;
+    font-size: 13px;
+    color: #9aa4ff;
+    text-decoration: none;
+    margin-top: 0.75rem;
+    transition: 0.2s ease;
+}
+
+.btn-link-back:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.admin-home-actions {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.admin-home-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.btn-secondary-glow {
+    background: linear-gradient(135deg, #ba376f, #7d2359);
+    color: white;
+}
+
+.btn-secondary-glow:hover {
+    transform: translateY(-2px);
+    color: currentColor;
+    box-shadow: 0 12px 28px rgba(186, 55, 111, 0.4);
+}
+
+@media (max-width: 576px) {
+    .admin-home-row {
+        flex-direction: column;
+    }
+}
+
+.dashboard-action-buttons {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-subtle {
+    background: rgba(255, 255, 255, 0.06);
+    color: #ddd;
+    backdrop-filter: blur(6px);
+}
+
+.btn-subtle:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #E6498C;
+}
+
+@media (max-width: 576px) {
+    .dashboard-action-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+.page-cta-primary {
+    font-size: 18px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.page-cta-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px #087085;
+}
+
+.page-out:hover {
+    background: #BA376F;
+}

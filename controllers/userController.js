@@ -84,16 +84,10 @@ const insertUser = async (req, res) => {
 
 
 const loginLoad = async(req,res)=>{
-    if(req.session.user){
-        res.redirect('users/home')
-    }
-    else{
-        try{
-            res.render("users/login", { toast: getToast(req) })
-        }
-        catch(error){
-            console.error(error);
-        }
+    try {
+        res.render("users/login", { toast: getToast(req) })
+    } catch (error) {
+        console.error(error)
     }
 }
 
@@ -109,6 +103,9 @@ const verifyLogin = async(req,res)=>{
         if(userData){
             const passwordMatch = await bcrypt.compare(password, userData.password);
             if(passwordMatch){
+                    if (userData.is_admin) {
+                        return redirectWithToast.error(req, res, "If you are an admin, click the Admin Panel below to log in.", "/")
+                    }
                     req.session.user = userData._id;
                     return redirectWithToast.success(req, res, "Welcome home!", "/home")
             }

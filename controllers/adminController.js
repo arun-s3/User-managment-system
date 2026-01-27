@@ -19,13 +19,13 @@ const securepassword = async(password)=>{
 
 
 const loginLoad = async(req,res)=> {
-        try{
-            res.render('admin/login', { toast: getToast(req) })
-        }
-        catch(error){
-            console.error(error)
-        }
+    try{
+        res.render('admin/login', { toast: getToast(req) })
     }
+    catch(error){
+        console.error(error)
+    }
+}
 
 
 const verifyLogin = async(req,res)=> {
@@ -43,7 +43,7 @@ const verifyLogin = async(req,res)=> {
                     return redirectWithToast.success(req, res, "Welcome home!", "/admin/home")
                 }
                 else{ 
-                    return redirectWithToast.error(req, res, "Please verify your password", "/admin")
+                    return redirectWithToast.error(req, res, "Access denied. This panel is for administrators only.", "/admin")
                 }
             }
             else{
@@ -121,7 +121,7 @@ const loadEditSelf = async(req,res)=>{
 
 const editSelf = async(req,res)=>{
     try{
-        const id = req.body.admin;
+        const id = req.body.id;
         const { name, email, mno: mobile, password } = req.body
 
         const spassword = await securepassword(password);

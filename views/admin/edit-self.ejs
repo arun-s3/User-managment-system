@@ -41,7 +41,7 @@
                                     id="profilePreview" style="border-radius: 46px; outline: 2px solid #F3387F; margin-bottom: 1.2rem;">
                                 <p id="img-error" style="display: none;"></p>
 
-                                <form action="/admin/edit-self" method="post" id="form" enctype="multipart/form-data">
+                                <form action="" method="post" id="form" enctype="multipart/form-data">
 
                                     <input type="hidden" name="id" value="<%= admin._id %>">
 
@@ -109,21 +109,21 @@
                                         </tr>
                                     </table>
 
-                                    <h2>
-                                        <button class="btn btn-outline-info btn-lg px-5 w-100" type="submit" id="submitBtn">
+                                    <div class="admin-actions">
+                                        <button class="btn-site btn-primary-glow w-100" type="submit" id="submitBtn">
                                             Update Profile
                                         </button>
-                                    </h2>
+                                    
+                                        <a href="/logout" class="btn-site btn-danger-glow w-100 mt-3">
+                                            Logout
+                                        </a>
+                                    
+                                        <a href="/admin/home" class="btn-link-back">
+                                            ← Home
+                                        </a>
+                                    </div>
 
                                 </form>
-                                
-                                <h2 style="margin-top: 1rem;">
-                                    <a href="/logout" class="btn btn-outline-light btn-lg px-5 w-100">
-                                        Logout
-                                    </a>
-                                </h2> 
-
-                                <a href="/admin/home" style="text-decoration: none;">Go Back</a>
 
                             </div>
                         </div>

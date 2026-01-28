@@ -43,7 +43,7 @@ const insertUser = async (req, res) => {
         const mobileExists = await User.findOne({ mobile: req.body.mno })
         if (mobileExists) {
             return res.render("users/registration", {
-                message: "This email already exists. Please refill the form!", name: req.body.name, mobile: req.body.mno, isAdmin,
+                message: "This mobile number already exists. Please refill the form!", name: req.body.name, mobile: req.body.mno, isAdmin,
             })
         }
 
@@ -58,12 +58,14 @@ const insertUser = async (req, res) => {
             return redirectWithToast.error(req, res, "Password encryption failed. Please try again.", "/")
         }
 
+        const defaultDp = isAdmin ? "/public/Images/defaultAdmin.jpg" : "/public/Images/defultProfilePic.jpg"
+
         const user = new User({
             name: req.body.name,
             password: spassword,
             mobile: req.body.mno,
             email: req.body.email,
-            image: req.file.path,
+            image: req?.file?.path ? req.file.path : defaultDp,
             is_admin: isAdmin ? 1 : 0,
         })
 

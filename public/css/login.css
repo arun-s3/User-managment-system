@@ -85,6 +85,12 @@ label {
     color: #C52F4F;
     letter-spacing: 0.4px;
     font-size: 13px;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+#error1{
+    max-height: 7px;
 }
 
 input {
@@ -188,6 +194,7 @@ img {
     font-size: 0.9rem;
     font-weight: 600;
     color: #ffffff;
+    text-decoration: none !important;
     background: linear-gradient(135deg, #5b5bff, #2f2fd8);
     text-decoration: none;
     transition: all 0.25s ease;
@@ -195,6 +202,7 @@ img {
 }
 
 .admin-btn:hover {
+    color: rgb(210, 219, 248);
     transform: translateY(-1px);
     box-shadow: 0 10px 24px rgba(47, 47, 216, 0.35);
     background: linear-gradient(135deg, #4a4aff, #2424c4);
@@ -272,15 +280,20 @@ img {
 
 @media only screen and (max-height: 450px) {
 
-.container {
-    width: 100%;
-}
+    .container {
+        width: 100%;
+    }
 
-body {
-    padding-bottom: 10px;
-    overflow: scroll;
-    height: 100%;
-}
+    body {
+        padding-bottom: 10px;
+        overflow: scroll;
+        height: 100%;
+    }
 
+}
+@media (min-width: 576px) {
+    .text-sm-nowrap {
+        white-space: nowrap !important;
+    }
 }
 

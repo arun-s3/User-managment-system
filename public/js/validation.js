@@ -1,3 +1,4 @@
+
 const name = document.getElementById("name")
 const error1 = document.getElementById("error1")
 
@@ -144,6 +145,7 @@ form.addEventListener("submit",function(event){
     if(error1.textContent || error2.textContent || error3.textContent || error4.textContent){
         event.preventDefault();
     } 
+    activateLoadingState()
 })
 
 

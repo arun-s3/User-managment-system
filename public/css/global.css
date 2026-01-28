@@ -6,7 +6,11 @@
 }
 
 .err {
+    font-size: 13px;
+    white-space: nowrap;
+    margin-top: -22px;
     padding: 5px;
+    white-space: normal;
 }
 
 #file {
@@ -69,4 +73,32 @@
     margin-bottom: 1.2rem;
     font-size: 13px;
     color: #dc3545;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-black:hover {
+    color: black !important
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+    color: #9a9aa5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    transition: 0.2s ease;
+}
+
+.toggle-password:hover {
+    color: #ffffff;
+}
+
+.password-wrapper input {
+    padding-right: 45px;
 }

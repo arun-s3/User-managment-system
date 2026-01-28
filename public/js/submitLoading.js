@@ -6,6 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!form || !btn) return
 
     form.addEventListener("submit", () => {
+
+        const errors = document.getElementsByClassName("alert")
+        const areErrorsVisible = [...errors].some((error) => error.style.display !== "none")
+
+        if (areErrorsVisible) return
+
         btn.innerHTML = `
             <span class="spinner-border spinner-border-sm me-1"></span>
             Submitting...

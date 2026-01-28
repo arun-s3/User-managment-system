@@ -28,15 +28,28 @@
                     <input type="email" id="email" name="email" required>
                     <label onclick="focusinp('usr')" for="email">Email</label>
                 </div>
-                <span id="error1" style="display: none;" class="alert alert-danger err"></span>
+                <span id="error1" style="display: none;" class="alert text-sm-nowrap"></span>
            </div>
        
             <div>
-                <div class="inp">
+                <div class="inp password-wrapper">
                     <input type="password" id="password" name="password" required>
                     <label onclick="focusinp('pass')" for="password">Password</label>
+
+                    <span class="toggle-password" id="togglePassword">
+                        <svg id="eyeOpen" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-width="2"
+                                d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/>
+                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    
+                        <svg id="eyeClosed" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" style="display:none;">
+                            <path stroke="currentColor" stroke-width="2"
+                                d="M3 3l18 18M10.6 10.6A3 3 0 0012 15a3 3 0 002.4-4.4M9.9 4.2A10.9 10.9 0 0112 5c6.4 0 10 7 10 7a18.6 18.6 0 01-3.2 4.4M6.2 6.2C3.9 8 2 12 2 12s3.6 7 10 7a9.6 9.6 0 004.2-.9"/>
+                        </svg>
+                    </span>
                 </div>
-                <span id="error2" style="display: none;" class="alert alert-danger err"></span>
+                <span id="error2" style="display: none;" class="alert text-sm-nowrap"></span>
             </div>
        
            <button type="submit" id="submitBtn">
@@ -63,6 +76,7 @@
 <%- include("../partials/footer", {
     scripts: `
         <script src="/public/js/login.js"></script>
+        <script src="/public/js/togglePassword.js"></script>
         <script src="/public/js/submitLoading.js"></script>
         <script src="/public/js/toast.js"></script>
     `

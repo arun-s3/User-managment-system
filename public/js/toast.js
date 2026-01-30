@@ -1,11 +1,11 @@
 
 document.addEventListener("DOMContentLoaded", () => {
-    if (!window.CORTEX_TOAST) return
+    if (!window.__TOAST__) return
 
     const toast = document.getElementById("toast")
 
-    toast.textContent = window.CORTEX_TOAST.message
-    toast.classList.add("show", window.CORTEX_TOAST.type)
+    toast.textContent = window.__TOAST__.message
+    toast.classList.add("show", window.__TOAST__.type)
 
     setTimeout(() => {
         toast.classList.remove("show")

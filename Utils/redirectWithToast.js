@@ -13,12 +13,5 @@ module.exports = {
             message: msg,
         }
         return res.redirect(path)
-    },
-    info: (req, res, msg, path) => {
-        req.session.toast = {
-            type: "info",
-            message: msg,
-        }
-        return res.redirect(path)
-    },
+    }
 }

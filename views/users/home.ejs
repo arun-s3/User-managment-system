@@ -4,7 +4,7 @@
 
     <% if (typeof toast !== "undefined" && toast) {  %>
         <script>
-        window.__TOAST__ = {
+        window.CORTEX_TOAST = {
             message: "<%= toast.message %>",
             type: "<%= toast.type %>"
         }

@@ -7,7 +7,7 @@
 
     <% if (typeof toast !== "undefined" && toast) { %>
         <script>
-        window.__TOAST__ = {
+        window.CORTEX_TOAST = {
             message: "<%= toast.message %>",
             type: "<%= toast.type %>"
         }
@@ -59,7 +59,6 @@
 
         <a href="/register?admin=false">Dont have a account? Sign up</a>
 
-        <br><br><br><br><br><br>
         <% if(typeof message !== 'undefined'){ %>
             <h4 style="color:red;"> <%= message %> </h4>
         <% } %>

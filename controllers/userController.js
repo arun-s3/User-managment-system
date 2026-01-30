@@ -55,7 +55,7 @@ const insertUser = async (req, res) => {
 
         const spassword = await securepassword(req.body.password)
         if (!spassword) {
-            return redirectWithToast.error(req, res, "Password encryption failed. Please try again.", "/")
+            return redirectWithToast.error(req, res, "Password encryption failed. Please try again.", "/register")
         }
 
         const defaultDp = isAdmin ? "/public/Images/defaultAdmin.jpg" : "/public/Images/defultProfilePic.jpg"

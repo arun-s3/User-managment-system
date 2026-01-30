@@ -4,6 +4,16 @@
 
     <%- include('../partials/logo', { type: 'main' }) %>
 
+    <% if (typeof toast !== "undefined" && toast) { %>
+        <script>
+          window.CORTEX_TOAST = {
+            message: "<%= toast.message %>",
+            type: "<%= toast.type %>"
+          }
+        </script>
+    <% } %>
+
+    <div id="toast" class="toast"></div>
 
         <section class="bg-custom">
             <div class="container py-5 h-100">
@@ -90,7 +100,7 @@
                                         </div>
                                         <img src="" height="50px" width="50px" id="profilePreview"
                                             style="display:none; border-radius: 25px; outline: 2px solid #F3387F; margin-bottom: 1.2rem;"/>
-                                        <br>
+                                        <p id="img-error" style="display: none;"></p>
 
                                         <div class="register-actions">
                                             <button type="submit" class="btn-site btn-primary-glow w-100" id="submitBtn">
@@ -116,7 +126,9 @@
     scripts: `
         <script src="/public/js/togglePassword.js"></script>
         <script src="/public/js/validation.js"></script>
+        <script src="/public/js/imgPreviewAndValidate.js"></script>
         <script src="/public/js/submitLoading.js"></script>
+        <script src="/public/js/toast.js"></script>
     `
 }) %>
 

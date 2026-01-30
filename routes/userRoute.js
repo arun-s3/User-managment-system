@@ -8,7 +8,7 @@ const userController = require("../controllers/userController");
 
 
 user_router.get('/register', auth.isLogout, userController.loadRegister);
-user_router.post("/register", imageUploader("/register"), userController.insertUser)
+user_router.post("/register", auth.isLogout, imageUploader("/register"), userController.insertUser)
 
 user_router.get('/', auth.isLogout, userController.loginLoad);
 

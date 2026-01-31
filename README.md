@@ -2,7 +2,7 @@
 
 Cortex is a **full-stack, admin-driven user management application** built to reflect how real internal dashboards are designed: secure authentication, middleware pipelines, controlled file uploads, instant feedback, and predictable UI behavior under real conditions.
 
-It focuses on **clarity, stability, and correctness** — not just CRUD — and demonstrates how backend architecture and frontend UX should work together in production environments.
+It focuses on **clarity, stability, and correctness** — going beyond basic CRUD — with careful attention to how backend structure and frontend UX integrate in a real-world conditions.
 
 ---
 
@@ -28,11 +28,25 @@ It focuses on **clarity, stability, and correctness** — not just CRUD — and 
 
 ## 🖼️ Screenshots
 
+### 🔐 Login (Admin & User)
+
+**Secure authentication with real-time inline validation and feedback**
+
+![Login with inline feedback](./screenshots/user-login.png)
+
+### 📝 Registration (Admin & User)
+
+**Unified registration flow with role-aware logic, real-time inline validation , image validation,  toast and feedback**
+
+![Registration with inline feedback](./screenshots/registration-inline-errors.png)
+![Registration with unsupported image error](./screenshots/resgistration-img-big.png)
+
 ### 📊 Admin Dashboard
 
 **Sortable, searchable, AJAX-powered user table with clear visual state**
 
 ![Dashboard](./screenshots/dashboard.png)
+![Dashboard](./screenshots/sort-users.png)
 
 ---
 
@@ -40,23 +54,34 @@ It focuses on **clarity, stability, and correctness** — not just CRUD — and 
 
 **Live validation, image preview, upload protection & loading states**
 
-![Add user](./screenshots/add-user.png)
+![add user with inline feedbacks](./screenshots/new-user-inline-errors.png)
+![edit user with inline feedbacks with loading state](./screenshots/edit-user.png)
 
 ---
 
-### 🔍 Search & Delete (AJAX)
+### 🔍 Search & Delete with toast (AJAX)
 
-**No page reloads, instant feedback, safe UX**
+**No page reloads, instant feedback, toast, safe UX**
 
-![Search user](./screenshots/search.png)
+![Search user](./screenshots/search-users.png)
+![Delete user](./screenshots/dashboard-delete-user.png)
+![Delete user success toast](./screenshots/delete-user-toast.png)
 
 ---
 
-### 🪩 Toast & Inline Feedback
+### 🚫 404 — Page Not Found and 500 — Something Went Wrong
 
-**Custom-built feedback system (success, error, info)**
+**Graceful handling of invalid routes with a user-friendly fallback**
 
-![Toast](./screenshots/toast.png)
+![Search user](./screenshots/404Error.png)
+
+---
+
+### 🪩 Toast (Example used- user's home page)
+
+**Custom-built feedback system (success, error,)**
+
+![Toast](./screenshots/user-home.png)
 
 ---
 
@@ -81,8 +106,6 @@ Cortex intentionally mixes **server rendering (EJS)** with  **AJAX interactions*
 * Search & delete → AJAX (instant UX)
 * Errors → toast or inline feedback
 * Redirects → still show messages via session
-
-This approach balances  **SEO, simplicity, and speed** .
 
 ..................................................................................................
 
@@ -113,8 +136,6 @@ Cortex uses a  **custom toast pipeline** , not a library:
 * Success / error
 * Used for all critical actions
 
-This mimics  **flash messaging in real admin panels** .
-
 ..................................................................................................
 
 ### 📝 Form Validation System
@@ -132,6 +153,28 @@ This mimics  **flash messaging in real admin panels** .
 * Errors injected as toast
 
 **Result:** safe, user-friendly forms without silent failures.
+
+..................................................................................................
+
+### 🔐 Authentication & Role-Based Access
+
+**Unified registration flow with role separation and controlled access**
+
+* Supports **User and Admin registration**
+* Admin registration is protected via a **secure admin invite code**
+* Prevents unauthorized privilege escalation
+* Clean separation of concerns between user and admin roles from the first interaction
+
+..................................................................................................
+
+### 👤 Profiles & Account Management
+
+**Dedicated profile pages for both users and admins**
+
+* Each user and admin has an individual **profile page**
+* Profile details can be **edited and updated securely**
+* Supports profile image updates with validation and preview
+* Updates provide immediate UI feedback via toast notifications
 
 ..................................................................................................
 
@@ -184,6 +227,12 @@ Features:
 * Visual arrows
 * Stable header row
 * No DOM corruption
+
+..................................................................................................
+
+### 📱 Responsive & Very minimal & to the point lightweight UI
+
+Designed to stay readable and usable across all screen sizes.
 
 ..................................................................................................
 
@@ -284,7 +333,7 @@ Cortex intentionally focuses on  **real admin system problems** :
 * Clean MVC boundaries
 * Clear failure states
 
-> The goal was to build something that behaves like internal tools used in companies — stable, predictable, and safe.
+> The goal was to build something that behaves (or atleast close to) like internal tools used in companies — stable, predictable, and safe.
 
 ---
 
